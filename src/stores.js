@@ -90,7 +90,7 @@ export const createStore = () => {
     emit()
   }
 
-  const close = async () => {
+  const disconnect = async () => {
     const provider = get('provider')
     provider.removeAllListeners()
     deleteAll()
@@ -101,8 +101,9 @@ export const createStore = () => {
   return {
     setBrowserProvider,
     setProvider,
+    disconnect,
     subscribe,
-    close
+    get,
   }
 }
 
@@ -151,6 +152,8 @@ export const makeEvmStore = name => {
 
   return allStores[name]
 }
+
+export { chains as allChainsData }
 
 export const defaultEvmStore = makeEvmStore('default')
 
