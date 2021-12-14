@@ -35,10 +35,10 @@ import { connected, provider, signer, chainId, chainData} from 'svelte-ethers-st
 
 For these stores to be useful in your svelte application, you first need to connect to the blockchain.
 
-The main connection helper `defaultEvmStore` can be use to initiate a connection.
+The main connection helper `defaultEvmStores` can be use to initiate a connection.
 
 ```js
-import { defaultEvmStore } from 'svelte-ethers-store'
+import { defaultEvmStores } from 'svelte-ethers-store'
 ```
 
 ### Connection with the browser provider (wallets like metamask)
@@ -46,7 +46,7 @@ import { defaultEvmStore } from 'svelte-ethers-store'
 To enable a connection with the current window provider: 
 
 ```js
-defaultEvmStore.setBrowserProvider()
+defaultEvmStores.setBrowserProvider()
 ```
 
 Please note that your code need to be in browser context when
@@ -58,7 +58,7 @@ using Sapper or Sveltekit. Similarly, you cannot use
   onMount(
     () => {
       // add a test to return in SSR context
-      defaultEvmStore.setBrowserProvider()
+      defaultEvmStores.setBrowserProvider()
     }
   )
 ```
@@ -69,7 +69,7 @@ To enable connection using an url string or a valid provider object
 (as returned by web3Modal or WalletConnect for example):
 
 ```js
-defaultEvmStore.setProvider(<ws/https or http provider url or provider Object>)
+defaultEvmStores.setProvider(<ws/https or http provider url or provider Object>)
 ```
 
 
@@ -93,7 +93,7 @@ and use the Ethers.js API.
 Simply call the function `disconnect` directly on the store. For example with the default store:
 
 ```js
-defaultEvmStore.disconnect()
+defaultEvmStores.disconnect()
 ```
 
 

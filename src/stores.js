@@ -34,7 +34,8 @@ export const createStore = () => {
     if (getWindowEthereum()) getWindowEthereum().autoRefreshOnNetworkChange = false
     assign({
       connected: false,
-      accounts: []
+      evmProviderType: '',
+      // accounts: []
     })
   }
 
@@ -60,7 +61,7 @@ export const createStore = () => {
       signer,
       provider,
       evmProviderType: typeof evmProvider === 'string' ? 'RPC' : 'Web3',
-      evmProvider: getWindowEthereum(),
+      // evmProvider: getWindowEthereum(),
       connected: true,
       chainId,
       //accounts,
@@ -76,16 +77,15 @@ export const createStore = () => {
     getWindowEthereum().on('chainChanged', setBrowserProvider)
     const provider = new ethers.providers.Web3Provider(getWindowEthereum())
     const signer = provider.getSigner()
-
     const { name, chainId } = await provider.getNetwork()
     assign({
       signer,
       provider,
       evmProviderType: 'Browser',
-      evmProvider: getWindowEthereum(),
+      // evmProvider: getWindowEthereum(),
       connected: true,
       chainId,
-      accounts: res,
+      // accounts: res,
     })
     emit()
   }
@@ -93,6 +93,10 @@ export const createStore = () => {
   const disconnect = async () => {
     const provider = get('provider')
     provider.removeAllListeners()
+    if (get('evmProviderType') === 'Browser') {
+      getWindowEthereum().removeListener('accountsChanged', setBrowserProvider)
+      getWindowEthereum().removeListener('chainChanged', setBrowserProvider)
+    }
     deleteAll()
     init()
     emit()
@@ -103,7 +107,7 @@ export const createStore = () => {
     setProvider,
     disconnect,
     subscribe,
-    get,
+    get
   }
 }
 
@@ -119,7 +123,9 @@ const getData = id => {
   return noData
 }
 
-export const makeEvmStore = name => {
+const subStoreNames = [ 'connected', 'chainId', 'evmProviderType', 'provider', 'signer', 'chainData' ]
+
+export const makeEvmStores = name => {
 
   const evmStore = allStores[name] = createStore()
 
@@ -127,35 +133,32 @@ export const makeEvmStore = name => {
   allStores[name].chainId = derived(evmStore, $evmStore => $evmStore.chainId)
   allStores[name].evmProviderType = derived(evmStore, $evmStore => $evmStore.evmProviderType)
 
-  allStores[name].provider = derived(
-    evmStore,
-    $evmStore => {
-      // if not defined return proxy
-      if (!$evmStore.provider) return { getBlockNumber: () => null }
-      return $evmStore.provider
-    }
-  )
-
-  allStores[name].signer = derived(
-    evmStore,
-    $evmStore => {
-      // if not defined return proxy
-      if (!$evmStore.signer) return { getAddress: () => null }
-      return $evmStore.signer
-    }
-  )
+  allStores[name].provider = derived(evmStore, $evmStore => $evmStore.provider)
+  allStores[name].signer = derived(evmStore, $evmStore => $evmStore.signer)
 
   allStores[name].chainData = derived(
     evmStore,
     $evmStore => $evmStore.chainId ? getData($evmStore.chainId) : {}
   )
 
-  return allStores[name]
+  return new Proxy(allStores[name], {
+    get: function (internal, property) {
+      if (/^\$/.test(property)) {
+        // TODO forbid deconstruction !
+        property = property.slice(1)
+        if (subStoreNames.includes(property)) return allStores[name].get(property)
+        throw new Error(`[svelte-ethers-store] no store named ${property}`)
+      }
+      if (['setBrowserProvider', 'setProvider', 'disconnect', ...subStoreNames].includes(property))
+        return Reflect.get(internal, property)
+      throw new Error(`[svelte-ethers-store] no store named ${property}`)
+    }
+  })
 }
 
 export { chains as allChainsData }
 
-export const defaultEvmStore = makeEvmStore('default')
+export const defaultEvmStores = makeEvmStores('default')
 
 export const connected = allStores.default.connected
 export const provider = allStores.default.provider

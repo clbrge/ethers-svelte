@@ -17,12 +17,12 @@
   },
   "dependencies": {
     "svelte-proxied-store": "^0.1.2",
-    "ethers": "^5.0.0"
+    "ethers": "^5.0.0",
+    "svelte": "^3.0.0"
   },
   "devDependencies": {
     "release-it": "^14.11.8",
-    "rollup": "^2.60.0",
-    "svelte": "^3.44.2"
+    "rollup": "^2.60.0"
   },
   "release-it": {
     "gitlab": {
