@@ -288,8 +288,13 @@ const chains = [
     name: 'Songbird Canary-Network',
     chain: 'SGB',
     network: 'songbird',
-    rpc: [ 'https://songbird.towolabs.com/rpc' ],
-    faucets: [ 'https://free-online-app.com/faucet-for-eth-evm-chains/' ],
+    rpc: [
+      'https://songbird.towolabs.com/rpc',
+      'https://sgb.ftso.com.au/ext/bc/C/rpc',
+      'https://sgb.lightft.so/rpc',
+      'https://sgb-rpc.ftso.eu'
+    ],
+    faucets: [],
     nativeCurrency: { name: 'Songbird', symbol: 'SGB', decimals: 18 },
     infoURL: 'https://flare.xyz',
     shortName: 'sgb',
@@ -511,6 +516,19 @@ const chains = [
     networkId: 33
   },
   {
+    name: 'Dithereum Testnet',
+    chain: 'DTH',
+    network: 'testnet',
+    icon: 'dithereum',
+    rpc: [ 'https://node-testnet.dithereum.io' ],
+    faucets: [ 'https://faucet.dithereum.org' ],
+    nativeCurrency: { name: 'Dither', symbol: 'DTH', decimals: 18 },
+    infoURL: 'https://dithereum.org',
+    shortName: 'dth',
+    chainId: 34,
+    networkId: 34
+  },
+  {
     name: 'TBWG Chain',
     chain: 'TBWG',
     network: 'mainnet',
@@ -659,19 +677,26 @@ const chains = [
     name: 'CoinEx Smart Chain Mainnet',
     chain: 'CSC',
     network: 'mainnet',
-    rpc: [ 'https://rpc-mainnet.coinex.net' ],
+    rpc: [ 'https://rpc.coinex.net' ],
     faucets: [],
     nativeCurrency: { name: 'CoinEx Chain Native Token', symbol: 'cet', decimals: 18 },
     infoURL: 'https://www.coinex.org/',
     shortName: 'cet',
     chainId: 52,
-    networkId: 52
+    networkId: 52,
+    explorers: [
+      {
+        name: 'coinexscan',
+        url: 'https://www.coinex.net/',
+        standard: 'none'
+      }
+    ]
   },
   {
     name: 'CoinEx Smart Chain Testnet',
     chain: 'CSC',
     network: 'testnet',
-    rpc: [ 'https://rpc-testnet.coinex.net' ],
+    rpc: [ 'https://testnet-rpc.coinex.net/' ],
     faucets: [],
     nativeCurrency: {
       name: 'CoinEx Chain Test Native Token',
@@ -681,7 +706,14 @@ const chains = [
     infoURL: 'https://www.coinex.org/',
     shortName: 'tcet',
     chainId: 53,
-    networkId: 53
+    networkId: 53,
+    explorers: [
+      {
+        name: 'coinexscan',
+        url: 'https://testnet.coinex.net/',
+        standard: 'none'
+      }
+    ]
   },
   {
     name: 'Zyx Mainnet',
@@ -1222,8 +1254,8 @@ const chains = [
     ]
   },
   {
-    name: 'xDAI Chain',
-    chain: 'XDAI',
+    name: 'Gnosis Chain (formerly xDai)',
+    chain: 'Gnosis',
     network: 'mainnet',
     rpc: [
       'https://rpc.xdaichain.com',
@@ -1235,19 +1267,20 @@ const chains = [
       'ws://xdai.poanetwork.dev:8546'
     ],
     faucets: [
-      'https://free-online-app.com/faucet-for-eth-evm-chains/',
-      'https://xdai-app.herokuapp.com/faucet'
+      'https://xdai-app.herokuapp.com/faucet',
+      'https://stakely.io/faucet/xdai-chain',
+      'https://faucet.prussia.dev/xdai'
     ],
     nativeCurrency: { name: 'xDAI', symbol: 'xDAI', decimals: 18 },
-    infoURL: 'https://forum.poa.network/c/xdai-chain',
-    shortName: 'xdai',
+    infoURL: 'https://www.xdaichain.com/',
+    shortName: 'gno',
     chainId: 100,
     networkId: 100,
     slip44: 700,
     explorers: [
       {
         name: 'blockscout',
-        url: 'https://blockscout.com/poa/xdai',
+        url: 'https://blockscout.com/xdai/mainnet',
         standard: 'EIP3091'
       }
     ]
@@ -1523,6 +1556,44 @@ const chains = [
       {
         name: 'seeleview',
         url: 'https://seeleview.net/',
+        standard: 'none'
+      }
+    ]
+  },
+  {
+    name: 'BMC Mainnet',
+    chain: 'BMC',
+    network: 'mainnet',
+    rpc: [ 'https://mainnet.bmcchain.com/' ],
+    faucets: [],
+    nativeCurrency: { name: 'BTM', symbol: 'BTM', decimals: 18 },
+    infoURL: 'https://bmc.bytom.io/',
+    shortName: 'BMC',
+    chainId: 188,
+    networkId: 188,
+    explorers: [
+      {
+        name: 'Blockmeta',
+        url: 'https://bmc.blockmeta.com/',
+        standard: 'none'
+      }
+    ]
+  },
+  {
+    name: 'BMC Testnet',
+    chain: 'BMC',
+    network: 'testnet',
+    rpc: [ 'https://testnet.bmcchain.com' ],
+    faucets: [],
+    nativeCurrency: { name: 'BTM', symbol: 'BTM', decimals: 18 },
+    infoURL: 'https://bmc.bytom.io/',
+    shortName: 'BMCT',
+    chainId: 189,
+    networkId: 189,
+    explorers: [
+      {
+        name: 'Blockmeta',
+        url: 'https://bmc.blockmeta.com/',
         standard: 'none'
       }
     ]
@@ -2209,7 +2280,7 @@ const chains = [
     name: 'Klaytn Testnet Baobab',
     chain: 'KLAY',
     network: 'baobab',
-    rpc: [ 'https://node-api.klaytnapi.com/v1/klaytn' ],
+    rpc: [ 'https://api.baobab.klaytn.net:8651' ],
     faucets: [ 'https://baobab.wallet.klaytn.com/access?next=faucet' ],
     nativeCurrency: { name: 'KLAY', symbol: 'KLAY', decimals: 18 },
     infoURL: 'https://www.klaytn.com/',
@@ -2603,6 +2674,27 @@ const chains = [
     networkId: 2022
   },
   {
+    name: 'Rangers Protocol Mainnet',
+    chain: 'Rangers',
+    network: 'mainnet',
+    icon: 'rangers',
+    rpc: [ 'https://mainnet.rangersprotocol.com/api/jsonrpc' ],
+    faucets: [],
+    nativeCurrency: { name: 'Rangers Protocol Gas', symbol: 'RPG', decimals: 18 },
+    infoURL: 'https://rangersprotocol.com',
+    shortName: 'rpg',
+    chainId: 2025,
+    networkId: 2025,
+    slip44: 1008,
+    explorers: [
+      {
+        name: 'rangersscan',
+        url: 'https://scan.rangersprotocol.com',
+        standard: 'none'
+      }
+    ]
+  },
+  {
     name: 'Ecoball Mainnet',
     chain: 'ECO',
     network: 'mainnet',
@@ -2667,13 +2759,13 @@ const chains = [
   },
   {
     name: 'Bittex Mainnet',
-    chain: 'BTTX',
+    chain: 'BTX',
     network: 'mainnet',
     rpc: [ 'https://rpc1.bittexscan.info', 'https://rpc2.bittexscan.info' ],
     faucets: [],
-    nativeCurrency: { name: 'Bittex', symbol: 'BTTX', decimals: 18 },
+    nativeCurrency: { name: 'Bittex', symbol: 'BTX', decimals: 18 },
     infoURL: 'https://bittexscan.com',
-    shortName: 'bttx',
+    shortName: 'btx',
     chainId: 3690,
     networkId: 3690,
     icon: 'ethereum',
@@ -2854,16 +2946,19 @@ const chains = [
     name: 'Hazlor Testnet',
     chain: 'SCAS',
     network: 'testnet',
-    rpc: [ 'https://hatlas.rpc.hazlor.com:8545/' ],
+    rpc: [
+      'https://hatlas.rpc.hazlor.com:8545',
+      'wss://hatlas.rpc.hazlor.com:8546'
+    ],
     faucets: [ 'https://faucet.hazlor.com' ],
     nativeCurrency: { name: 'Hazlor Test Coin', symbol: 'TSCAS', decimals: 18 },
     infoURL: 'https://hazlor.com',
-    shortName: 'hazlor-hatlas',
+    shortName: 'tscas',
     chainId: 7878,
     networkId: 7878,
     explorers: [
       {
-        name: 'Hazlor Explorer ',
+        name: 'Hazlor Testnet Explorer',
         url: 'https://explorer.hazlor.com',
         standard: 'none'
       }
@@ -2904,14 +2999,21 @@ const chains = [
     name: 'Klaytn Mainnet Cypress',
     chain: 'KLAY',
     network: 'cypress',
-    rpc: [ 'https://node-api.klaytnapi.com/v1/klaytn' ],
+    rpc: [ 'https://public-node-api.klaytnapi.com/v1/cypress' ],
     faucets: [],
     nativeCurrency: { name: 'KLAY', symbol: 'KLAY', decimals: 18 },
     infoURL: 'https://www.klaytn.com/',
     shortName: 'Cypress',
     chainId: 8217,
     networkId: 8217,
-    slip44: 8217
+    slip44: 8217,
+    explorers: [
+      {
+        name: 'Klaytnscope',
+        url: 'https://scope.klaytn.com',
+        standard: 'none'
+      }
+    ]
   },
   {
     name: 'KorthoTest',
@@ -3009,6 +3111,26 @@ const chains = [
       {
         name: 'Evmos Cosmos Explorer (Big Dipper)',
         url: 'https://explorer.evmos.org',
+        standard: 'none'
+      }
+    ]
+  },
+  {
+    name: 'Rangers Protocol Testnet Robin',
+    chain: 'Rangers',
+    network: 'robin',
+    icon: 'rangers',
+    rpc: [ 'https://robin.rangersprotocol.com/api/jsonrpc' ],
+    faucets: [ 'https://robin-faucet.rangersprotocol.com' ],
+    nativeCurrency: { name: 'Rangers Protocol Gas', symbol: 'tRPG', decimals: 18 },
+    infoURL: 'https://rangersprotocol.com',
+    shortName: 'trpg',
+    chainId: 9527,
+    networkId: 9527,
+    explorers: [
+      {
+        name: 'rangersscan-robin',
+        url: 'https://robin-rangersscan.rangersprotocol.com',
         standard: 'none'
       }
     ]
@@ -4203,6 +4325,25 @@ const chains = [
     networkId: 1313500
   },
   {
+    name: 'Kintsugi merge testnet',
+    chain: 'ETH',
+    network: 'testnet',
+    rpc: [ 'https://rpc.kintsugi.themerge.dev' ],
+    faucets: [ 'https://faucet.kintsugi.themerge.dev' ],
+    nativeCurrency: { name: 'kintsugi Ethere', symbol: 'kiETH', decimals: 18 },
+    infoURL: 'https://kintsugi.themerge.dev/',
+    shortName: 'kintsugi',
+    chainId: 1337702,
+    networkId: 1337702,
+    explorers: [
+      {
+        name: 'kintsugi explorer',
+        url: 'https://explorer.kintsugi.themerge.dev/',
+        standard: 'EIP3091'
+      }
+    ]
+  },
+  {
     name: 'Musicoin',
     chain: 'MUSIC',
     network: 'mainnet',
@@ -4575,6 +4716,18 @@ const chains = [
     shortName: 'hmy-b-s3',
     chainId: 1666700003,
     networkId: 1666700003
+  },
+  {
+    name: 'DataHopper',
+    chain: 'HOP',
+    network: 'hopnet',
+    rpc: [ 'https://23.92.21.121:8545' ],
+    faucets: [],
+    nativeCurrency: { name: 'DataHoppers', symbol: 'HOP', decimals: 18 },
+    infoURL: 'https://www.DataHopper.com',
+    shortName: 'hop',
+    chainId: 2021121117,
+    networkId: 2021121117
   },
   {
     name: 'Pirl',

@@ -32,6 +32,7 @@ export const createStore = () => {
 
   const init = () => {
     if (getWindowEthereum()) getWindowEthereum().autoRefreshOnNetworkChange = false
+    deleteAll()
     assign({
       connected: false,
       evmProviderType: '',
@@ -48,22 +49,22 @@ export const createStore = () => {
     const signer = provider.getSigner()
     /*
     if (callback) {
-      instance._provider.removeListener('accountsChanged', () => setProvider(provider, true))
-      instance._provider.removeListener('chainChanged', () =>  setProvider(provider, true))
+      instance._provider.removeListener('accountsChanged', () => setProvider(evmProvider, true))
+      instance._provider.removeListener('chainChanged', () =>  setProvider(evmProvider, true))
     } else {
       if (instance._provider && instance._provider.on) {
-        instance._provider.on('accountsChanged', () => setProvider(provider, true))
-        instance._provider.on('chainChanged', () => setProvider(provider, true))
+        instance._provider.on('accountsChanged', () => setProvider(evmProvider, true))
+        instance._provider.on('chainChanged', () => setProvider(evmProvider, true))
       }
     }
     */
     assign({
       signer,
       provider,
-      evmProviderType: typeof evmProvider === 'string' ? 'RPC' : 'Web3',
       // evmProvider: getWindowEthereum(),
       connected: true,
       chainId,
+      evmProviderType: typeof evmProvider === 'string' ? 'RPC' : 'Web3',
       //accounts,
     })
     emit()
@@ -71,7 +72,7 @@ export const createStore = () => {
 
   const setBrowserProvider = async () => {
     init()
-    if (!getWindowEthereum()) throw new Error('Please autorized browser extension (Metamask or similar)')
+    if (!getWindowEthereum()) throw new Error('Please authorize browser extension (Metamask or similar)')
     const res = await getWindowEthereum().request({ method: 'eth_requestAccounts' })
     getWindowEthereum().on('accountsChanged', setBrowserProvider)
     getWindowEthereum().on('chainChanged', setBrowserProvider)
@@ -81,10 +82,11 @@ export const createStore = () => {
     assign({
       signer,
       provider,
-      evmProviderType: 'Browser',
       // evmProvider: getWindowEthereum(),
       connected: true,
       chainId,
+      evmProvider: getWindowEthereum(),
+      evmProviderType: 'Browser',
       // accounts: res,
     })
     emit()
@@ -97,7 +99,6 @@ export const createStore = () => {
       getWindowEthereum().removeListener('accountsChanged', setBrowserProvider)
       getWindowEthereum().removeListener('chainChanged', setBrowserProvider)
     }
-    deleteAll()
     init()
     emit()
   }
@@ -123,23 +124,25 @@ const getData = id => {
   return noData
 }
 
-const subStoreNames = [ 'connected', 'chainId', 'evmProviderType', 'provider', 'signer', 'chainData' ]
+const subStoreNames = [ 'connected', 'chainId', 'provider', 'signer', 'chainData' ]
 
 export const makeEvmStores = name => {
 
   const evmStore = allStores[name] = createStore()
 
-  allStores[name].connected = derived(evmStore, $evmStore => $evmStore.connected)
-  allStores[name].chainId = derived(evmStore, $evmStore => $evmStore.chainId)
-  allStores[name].evmProviderType = derived(evmStore, $evmStore => $evmStore.evmProviderType)
-
   allStores[name].provider = derived(evmStore, $evmStore => $evmStore.provider)
   allStores[name].signer = derived(evmStore, $evmStore => $evmStore.signer)
 
+  allStores[name].connected = derived(evmStore, $evmStore => $evmStore.connected)
+  allStores[name].chainId = derived(evmStore, $evmStore => $evmStore.chainId)
   allStores[name].chainData = derived(
     evmStore,
     $evmStore => $evmStore.chainId ? getData($evmStore.chainId) : {}
   )
+
+  allStores[name].evmProviderType = derived(evmStore, $evmStore => $evmStore.evmProviderType)
+
+
 
   return new Proxy(allStores[name], {
     get: function (internal, property) {
@@ -161,7 +164,9 @@ export { chains as allChainsData }
 export const defaultEvmStores = makeEvmStores('default')
 
 export const connected = allStores.default.connected
+export const chainId = allStores.default.chainId
+export const evmProviderType = allStores.default.evmProviderType
 export const provider = allStores.default.provider
 export const signer = allStores.default.signer
-export const chainId = allStores.default.chainId
+
 export const chainData = allStores.default.chainData

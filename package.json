@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "release-it": "^14.11.8",
-    "rollup": "^2.60.0"
+    "rollup": "^2.60.1"
   },
   "release-it": {
     "gitlab": {
