@@ -6,7 +6,7 @@ collection of [readable svelte stores](https://svelte.dev/tutorial/readable-stor
 for Svelte, Sapper or SvelteKit.
 
 If you prefer to use the [web3.js library](https://web3js.readthedocs.io/) to intereact
-with EVM, you may be interested by the sister package [svelte-web3](https://www.npmjs.com/package/svelte-web3).%
+with EVM, you may be interested by the sister package [svelte-web3](https://www.npmjs.com/package/svelte-web3).
 
 ### Community
 
