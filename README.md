@@ -72,14 +72,29 @@ context.
   )
 ```
 
-### Connection with other providers (ws, http, Web3Modal, Walletconnect, etc)
+### Connection with other providers 
 
-To enable connection using an URL string or a valid provider object
-(for example as returned by web3Modal or WalletConnect):
+You can instanciate many types of providers using Ethers.js, see the
+relevant
+[documentation](https://docs.ethers.io/v5/api/providers/other/) and
+simply pass them as argument to `defaultEvmStores.setProvider` to inititate the stores:
 
 ```js
-defaultEvmStores.setProvider(<ws/https or http provider url or provider Object>)
+defaultEvmStores.setProvider(new ethers.providers.Web3Provider(<web3Modal or WalletConnect>))
+// or 
+defaultEvmStores.setProvider(new ethers.providers.InfuraProvider(<args>))
+// or 
+defaultEvmStores.setProvider(new ethers.providers.EtherscanProvider(<args>))
+// or 
+defaultEvmStores.setProvider(new ethers.providers.AlchemyProvider(<args>))
+// etc...
 ```
+
+As a shortcut, if you pass an URL string or a valid connection object, a
+[Ethers.js JsonRpcProvider](https://docs.ethers.io/v5/api/providers/jsonrpc-provider/)
+will be automatically instantiated.
+
+
 ### Using the stores
 
 After a connection has been established, you may import the stores
@@ -123,12 +138,15 @@ is used by the Svelte stores themselves encapsulating Provider or Signer instanc
   const balance = await $signer.getBalance()
 ```
 
+For providers that don't support `getSigner`, the $signer will be `null`.
+
+
 ### Reading stores outside of Svelte files
 
-The `$` prefix Svelte notation to access store values in only
+The `$` prefix Svelte notation to access store values is only
 available inside Svelte files. To directly access the instantiated
 values in pure javascript library without subscribing to the store,
-you can use special getter on the library abstract helper:
+you can use a special getter on the library abstract helper:
 
 ```js
 // this is not a Svelte file but a standard JavaScript file 
@@ -141,7 +159,7 @@ if (defaultEvmStores.$selectedAccount) {
 }
 ```
 
-### Forcing a disconnect (and the remove all listeners)
+### Forcing a disconnect (and removing all listeners)
 
 Simply call the function `disconnect` directly on the on the library
 abstract helper:

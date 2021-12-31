@@ -31,48 +31,47 @@ export const createStore = () => {
   const { emit, get, subscribe, assign, deleteAll } = proxied()
 
   const init = () => {
-    if (getWindowEthereum()) getWindowEthereum().autoRefreshOnNetworkChange = false
     deleteAll()
     assign({
       connected: false,
       evmProviderType: '',
-      // accounts: []
+      account: null,
     })
   }
 
-  const setProvider = async (evmProvider, callback) => {
+  const setProvider = async provider => {
     init()
-    const provider = typeof evmProvider === 'string'
-          ? new ethers.providers.JsonRpcProvider(evmProvider)
-          : new ethers.providers.Web3Provider(evmProvider)
-    const { name, chainId } = await provider.getNetwork()
-    const signer = provider.getSigner()
-    /*
-    if (callback) {
-      instance._provider.removeListener('accountsChanged', () => setProvider(evmProvider, true))
-      instance._provider.removeListener('chainChanged', () =>  setProvider(evmProvider, true))
-    } else {
-      if (instance._provider && instance._provider.on) {
-        instance._provider.on('accountsChanged', () => setProvider(evmProvider, true))
-        instance._provider.on('chainChanged', () => setProvider(evmProvider, true))
-      }
+    if (typeof provider !== 'object'
+        || (!Object.getPrototypeOf(provider) instanceof ethers.providers.BaseProvider
+            && !Object.getPrototypeOf(provider) instanceof ethers.providers.UrlJsonRpcProvider)) {
+      // todo autodetect web3 provider ?
+      provider = new ethers.providers.JsonRpcProvider(provider)
     }
-    */
+    const { name, chainId } = await provider.getNetwork()
+    let signer
+    // some providers do not support getSigner
+    try {
+      signer = provider.getSigner()
+    } catch(e) {
+      console.warn(e)
+    }
     assign({
       signer,
       provider,
-      // evmProvider: getWindowEthereum(),
       connected: true,
       chainId,
-      evmProviderType: typeof evmProvider === 'string' ? 'RPC' : 'Web3',
-      //accounts,
+      // evmProvider
+      evmProviderType: provider.constructor.name
     })
     emit()
   }
 
+  // todo generic EIP-1193 Provider handling
+
   const setBrowserProvider = async () => {
     init()
     if (!getWindowEthereum()) throw new Error('Please authorize browser extension (Metamask or similar)')
+    getWindowEthereum().autoRefreshOnNetworkChange = false
     const res = await getWindowEthereum().request({ method: 'eth_requestAccounts' })
     getWindowEthereum().on('accountsChanged', setBrowserProvider)
     getWindowEthereum().on('chainChanged', setBrowserProvider)
@@ -82,12 +81,10 @@ export const createStore = () => {
     assign({
       signer,
       provider,
-      // evmProvider: getWindowEthereum(),
       connected: true,
       chainId,
       evmProvider: getWindowEthereum(),
       evmProviderType: 'Browser',
-      // accounts: res,
     })
     emit()
   }

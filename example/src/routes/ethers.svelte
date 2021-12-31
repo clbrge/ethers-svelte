@@ -8,12 +8,20 @@
 
   const connect = async () => {
 
-    await defaultEvmStores.setBrowserProvider()
-    //await defaultEvmStores.setProvider('https://rpc.xdaichain.com/')
+    const x = new ethers.providers.Web3Provider( window.ethereum )
+
+    //new ethers.providers.InfuraProvider("ropsten")
+    //new ethers.providers.EtherscanProvider("rinkeby")
+    //new ethers.providers.AlchemyProvider("ropsten")
+    //new ethers.providers.CloudflareProvider()
+
+    // await defaultEvmStores.setBrowserProvider()
+
+    await defaultEvmStores.setProvider(  x  )
 
     console.log('$connected', defaultEvmStores.$connected  )
-    console.log('$connected', defaultEvmStores.$provider  )
-    console.log('$connected', defaultEvmStores.$signer  )
+    console.log('$provider', defaultEvmStores.$provider  )
+    console.log('$signer', defaultEvmStores.$signer  )
 
 
   }
