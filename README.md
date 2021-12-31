@@ -77,7 +77,7 @@ context.
 You can instanciate many types of providers using Ethers.js, see the
 relevant
 [documentation](https://docs.ethers.io/v5/api/providers/other/) and
-simply pass them as argument to `defaultEvmStores.setProvider` to inititate the stores:
+simply pass them as argument to `defaultEvmStores.setProvider()` to inititate the stores:
 
 ```js
 defaultEvmStores.setProvider(new ethers.providers.Web3Provider(<web3Modal or WalletConnect>))
@@ -94,6 +94,13 @@ As a shortcut, if you pass an URL string or a valid connection object, a
 [Ethers.js JsonRpcProvider](https://docs.ethers.io/v5/api/providers/jsonrpc-provider/)
 will be automatically instantiated.
 
+For provider that support the function `getSigner()`, a Signer Object will be automatically
+associated with the `signer` store. You can also pass `addressOrIndex` as the second argument
+of `setProvider()` to select another account than the default when possible.
+
+```js
+defaultEvmStores.setProvider(<Ethers provider>, <addressOrIndex>)
+```
 
 ### Using the stores
 
@@ -136,6 +143,9 @@ is used by the Svelte stores themselves encapsulating Provider or Signer instanc
   const { name, chainId } = await $provider.getNetwork()
 
   const balance = await $signer.getBalance()
+  
+  $signer.sendTransaction({<to>, <value>, <gasLimit>});
+
 ```
 
 For providers that don't support `getSigner`, the $signer will be `null`.

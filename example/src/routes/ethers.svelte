@@ -11,6 +11,8 @@
     try {
       const handler = {
         Browser: () => defaultEvmStores.setBrowserProvider(),
+        Localhost: () => defaultEvmStores.setProvider('http://127.0.0.1:8545'),
+        Localhost4: () => defaultEvmStores.setProvider('http://127.0.0.1:8545', 4),
         RPC: () => defaultEvmStores.setProvider('https://rpc.xdaichain.com/'),
         Infura: () => defaultEvmStores.setProvider(new ethers.providers.InfuraProvider("ropsten")),
         Etherscan: () => defaultEvmStores.setProvider(new ethers.providers.EtherscanProvider("rinkeby")),
@@ -35,6 +37,7 @@
   }
 
   $: network = $connected ? $provider.getNetwork() : ''
+  $: account = $connected && $signer ? $signer.getAddress() : ''
 
 </script>
 
@@ -64,6 +67,12 @@
     <span>{JSON.stringify(value)}</span>
     {/await}
 
+    {#await account}
+    <span>waiting...</span>
+    {:then value}
+    with {#if value}account {value}{:else}no account{/if}
+    {/await}
+
   </p>
 
 
@@ -74,6 +83,8 @@
   <p>Choose the provider:</p>
   <select bind:value={type}>
     <option value="Browser">Browser (window.ethereum)</option>
+    <option value="Localhost">Localhost (eg ganache or hardhat on http://127.0.0.1:8545)</option>
+    <option value="Localhost4">Localhost using account index 4</option>
     <option value="RPC">https://rpc.xdaichain.com/ (RPC)</option>
     <option value="Infura">ethers.providers.InfuraProvider('ropsten')</option>
     <option value="Etherscan">ethers.providers.EtherscanProvider('rinkeby')</option>

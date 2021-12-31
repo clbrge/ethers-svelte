@@ -39,7 +39,7 @@ export const createStore = () => {
     })
   }
 
-  const setProvider = async provider => {
+  const setProvider = async (provider, addressOrIndex = 0) => {
     init()
     if (typeof provider !== 'object'
         || (!Object.getPrototypeOf(provider) instanceof ethers.providers.BaseProvider
@@ -51,7 +51,13 @@ export const createStore = () => {
     let signer
     // some providers do not support getSigner
     try {
-      signer = provider.getSigner()
+      if (typeof provider.listAccounts === 'function') {
+        // const accounts = (await provider.listAccounts()) || []
+        // check account ?
+        signer = provider.getSigner(addressOrIndex)
+      } else {
+        signer = provider.getSigner()
+      }
     } catch(e) {
       console.warn(e)
     }
