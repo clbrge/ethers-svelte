@@ -16,7 +16,7 @@
     "build": "rollup -c"
   },
   "dependencies": {
-    "svelte-proxied-store": "^0.2.0",
+    "svelte-proxied-store": "^1.1.0",
     "ethers": "^5.0.0",
     "svelte": "^3.0.0"
   },

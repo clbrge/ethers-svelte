@@ -15,7 +15,7 @@ const getGlobalObject = () => {
   if (typeof self !== 'undefined') { return self }
   if (typeof window !== 'undefined') { return window }
   if (typeof global !== 'undefined') { return global }
-  throw new Error('cannot find the global object')
+  throw new Error('[svelte-ethers-store] cannot find the global object')
 }
 
 const getWindowEthereum = () => {
@@ -76,7 +76,7 @@ export const createStore = () => {
 
   const setBrowserProvider = async () => {
     init()
-    if (!getWindowEthereum()) throw new Error('Please authorize browser extension (Metamask or similar)')
+    if (!getWindowEthereum()) throw new Error('[svelte-ethers-store] Please authorize browser extension (Metamask or similar)')
     getWindowEthereum().autoRefreshOnNetworkChange = false
     const res = await getWindowEthereum().request({ method: 'eth_requestAccounts' })
     getWindowEthereum().on('accountsChanged', setBrowserProvider)

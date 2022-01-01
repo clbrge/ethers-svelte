@@ -50,8 +50,7 @@
   <h1>About svelte-ethers-store</h1>
 
   <p>
-	This is a <a href="https://kit.svelte.dev">SvelteKit</a> app. You can make your own by typing the
-	following into your command line and following the prompts:
+	Here is a simple example with many type of persistent connection using svelte-ethers-store.
   </p>
 
 
