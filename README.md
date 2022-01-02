@@ -2,7 +2,7 @@
 # svelte-ethers-store
 
 Use the [ethers.js library](https://docs.ethers.io/v5/) as a
-collection of [readable svelte stores](https://svelte.dev/tutorial/readable-stores)
+collection of [readable Svelte stores](https://svelte.dev/tutorial/readable-stores)
 for Svelte, Sapper or SvelteKit.
 
 If you prefer to use the [web3.js library](https://web3js.readthedocs.io/) to intereact
@@ -34,7 +34,7 @@ Svelte or JavaScript files :
 import { connected, provider, signer, chainId, chainData} from 'svelte-ethers-store'
 ```
 
- * connected: store value is true a connection has been set up.
+ * connected: store value is true if a connection has been set up.
  * provider: store value is an Ethers.js Provider instance when connected.
  * signer: store value is an Ethers.js Signer instance when connected.
  * chainId: store value is the current chainId when connected.
@@ -51,28 +51,61 @@ import { defaultEvmStores } from 'svelte-ethers-store'
 
 ### Connection with the browser provider (eg wallets like Metamask)
 
-To enable a connection with the current window provider, simply call
-`setBrowserProvider` on the library abstract helper:
+To enable a connection with the current [EIP-1193
+provider](https://eips.ethereum.org/EIPS/eip-1193#appendix-i-consumer-facing-api-documentation)
+injected in the browser `window` context, simply call `setProvider` on
+the library abstract helper with no argument:
 
 ```js
-defaultEvmStores.setBrowserProvider()
+defaultEvmStores.setProvider()
 ```
 
-Please note that `setBrowserProvider` can only to be executed in a browser
-context. So you may want to use `onMount` when using Sapper or
-SvelteKit. Similarly, you cannot use `setBrowserProvider` in SSR
-context.
+Please note that `setProvider` can only to be called with no argument
+in a browser context. So you may want to use `onMount` when using
+Sapper or SvelteKit. Similarly, you cannot use `setProvider` with no
+argument in SSR context.
 
 ```js
   onMount(
     () => {
       // add a test to return in SSR context
-      defaultEvmStores.setBrowserProvider()
+      defaultEvmStores.setProvider()
     }
   )
 ```
 
-### Connection with other providers 
+`svelte-ethers-store` will automatically update the stores when the network or
+accounts change and remove listeners at disconnection.
+
+:exclamation: previous version of `svelte-ethers-store` were using a special
+method `setBrowserProvider`. The former naming still works but will be
+removed in later versions. Please update your code!
+
+
+### Connection with non injected EIP-1193 providers
+
+To connect to non injected EIP-1193 providers like :
+
+ * buidler.dev
+ * ethers.js
+ * eth-provider
+ * WalletConnect
+ * Web3Modal
+
+Call `setProvider` on the library abstract helper with the js provider
+instance object of the library. For example with Web3Modal :
+
+```js
+const web3Modal = new Web3Modal(<your config>)
+const provider = await web3Modal.connect()
+defaultEvmStores.setProvider(provider)
+```
+
+`svelte-ethers-store` will automatically update the stores when the network or
+accounts change and remove listeners at disconnection.
+
+
+### Connection with other Ethers.js providers (ws, http, ipc, ...)
 
 You can instanciate many types of providers using Ethers.js, see the
 relevant
@@ -80,8 +113,6 @@ relevant
 simply pass them as argument to `defaultEvmStores.setProvider()` to inititate the stores:
 
 ```js
-defaultEvmStores.setProvider(new ethers.providers.Web3Provider(<web3Modal or WalletConnect>))
-// or 
 defaultEvmStores.setProvider(new ethers.providers.InfuraProvider(<args>))
 // or 
 defaultEvmStores.setProvider(new ethers.providers.EtherscanProvider(<args>))

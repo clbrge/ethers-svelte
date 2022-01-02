@@ -17,15 +17,15 @@
     "eslint-plugin-svelte3": "^3.2.1",
     "prettier": "^2.4.1",
     "prettier-plugin-svelte": "^2.4.0",
-    "svelte": "^3.44.0"
+    "svelte": "^3.44.3"
   },
   "type": "module",
   "dependencies": {
     "@fontsource/fira-mono": "^4.5.0",
     "@lukeed/uuid": "^2.0.0",
     "cookie": "^0.4.1",
-    "ethers": "^5.5.1",
-    "svelte-proxied-store": "^0.1.2",
-    "svelte-ethers-store": "file:../"
+    "rollup-plugin-polyfill-node": "^0.8.0",
+    "svelte-ethers-store": "file:../",
+    "svelte-proxied-store": "^0.1.2"
   }
 }
