@@ -47,6 +47,7 @@ export const createStore = () => {
     assign({
       connected: true,
       signer,
+      signerAddress: await signer.getAddress(),
       chainId,
       accounts
     })
@@ -85,7 +86,7 @@ export const createStore = () => {
       provider = new ethers.providers.JsonRpcProvider(provider)
     }
     const { name, chainId } = await provider.getNetwork()
-    let signer
+    let signer, signerAddress
     // some providers do not support getSigner
     try {
       if (typeof provider.listAccounts === 'function') {
@@ -95,11 +96,13 @@ export const createStore = () => {
       } else {
         signer = provider.getSigner()
       }
+      signerAddress = await signer.getAddress()
     } catch(e) {
       console.warn(e)
     }
     assign({
       signer,
+      signerAddress,
       provider,
       connected: true,
       chainId,
@@ -136,21 +139,23 @@ const getData = id => {
   return noData
 }
 
-const subStoreNames = [ 'connected', 'chainId', 'provider', 'signer', 'chainData' ]
+const subStoreNames = [ 'connected', 'provider', 'chainId', 'chainData', 'signer', 'signerAddress' ]
 
 export const makeEvmStores = name => {
 
   const evmStore = allStores[name] = createStore()
 
-  allStores[name].provider = derived(evmStore, $evmStore => $evmStore.provider)
-  allStores[name].signer = derived(evmStore, $evmStore => $evmStore.signer)
-
   allStores[name].connected = derived(evmStore, $evmStore => $evmStore.connected)
+
+  allStores[name].provider = derived(evmStore, $evmStore => $evmStore.provider)
   allStores[name].chainId = derived(evmStore, $evmStore => $evmStore.chainId)
   allStores[name].chainData = derived(
     evmStore,
     $evmStore => $evmStore.chainId ? getData($evmStore.chainId) : {}
   )
+
+  allStores[name].signer = derived(evmStore, $evmStore => $evmStore.signer)
+  allStores[name].signerAddress = derived(evmStore, $evmStore => $evmStore.signerAddress)
 
   allStores[name].evmProviderType = derived(evmStore, $evmStore => $evmStore.evmProviderType)
 
@@ -181,9 +186,10 @@ export { chains as allChainsData }
 export const defaultEvmStores = makeEvmStores('default')
 
 export const connected = allStores.default.connected
-export const chainId = allStores.default.chainId
-export const evmProviderType = allStores.default.evmProviderType
 export const provider = allStores.default.provider
+export const chainId = allStores.default.chainId
 export const signer = allStores.default.signer
+export const signerAddress = allStores.default.signerAddress
+export const evmProviderType = allStores.default.evmProviderType
 
 export const chainData = allStores.default.chainData

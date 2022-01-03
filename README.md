@@ -31,19 +31,20 @@ or the selected account change. You can import them directly in any
 Svelte or JavaScript files :
 
 ```js
-import { connected, provider, signer, chainId, chainData} from 'svelte-ethers-store'
+import { connected, provider, chainId, chainData, signer, signerAddress } from 'svelte-ethers-store'
 ```
 
  * connected: store value is true if a connection has been set up.
  * provider: store value is an Ethers.js Provider instance when connected.
- * signer: store value is an Ethers.js Signer instance when connected.
  * chainId: store value is the current chainId when connected.
  * chainData: store value is the current blokchain CAIP-2 data (when connected), see below.
+ * signer: store value is an Ethers.js Signer instance when connected.
+ * signerAddress: store value is a shortcut to get `$signer.getAddress()` when connected.
 
-For these stores to be useful in your Svelte application, a connection to an EVM
-blockchain first need to established . The abstract helper
-`defaultEvmStores` can be used to initiate the connection and automatically
-instanciate all stores.
+For these stores to be useful in your Svelte application, a connection
+to an EVM blockchain first need to established . The abstract helper
+`defaultEvmStores` can be used to initiate the connection and
+automatically instanciate all stores.
 
 ```js
 import { defaultEvmStores } from 'svelte-ethers-store'
@@ -92,7 +93,7 @@ To connect to non injected EIP-1193 providers like :
  * WalletConnect
  * Web3Modal
 
-Call `setProvider` on the library abstract helper with the js provider
+Call `setProvider` on the library abstract helper with the JavaScript provider
 instance object of the library. For example with Web3Modal :
 
 ```js
@@ -143,7 +144,7 @@ prefix Svelte notation to access the stores values.
 ```html
 <script>
 
-  import { connected, chainId } from 'svelte-ethers-store'
+  import { connected, chainId, signerAddress } from 'svelte-ethers-store'
 
 </script>
 
@@ -153,7 +154,7 @@ prefix Svelte notation to access the stores values.
 
 {:else}
 
-<p>Connected to chain with id {$chainId}</p>
+<p>Connected to chain (id {$chainId}) with account ($signerAddress)</p>
 
 {/if}
 ```
@@ -179,7 +180,7 @@ is used by the Svelte stores themselves encapsulating Provider or Signer instanc
 
 ```
 
-For providers that don't support `getSigner`, the $signer will be `null`.
+For providers that don't support `getSigner`, the value `$signer` will be `null`.
 
 
 ### Reading stores outside of Svelte files

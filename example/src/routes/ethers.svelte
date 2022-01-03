@@ -3,7 +3,7 @@
   import { onMount } from 'svelte'
 
   import { ethers } from 'ethers'
-  import { connected, provider, signer, defaultEvmStores } from 'svelte-ethers-store'
+  import { connected, provider, signer, signerAddress, defaultEvmStores } from 'svelte-ethers-store'
   //import Web3Modal from "web3modal"
 
   let type
@@ -74,7 +74,7 @@
   {#if $connected}
 
   <p>
-	Well done, you are now connected to the blockchain
+	Well done, you are now connected to the blockchain (account {$signerAddress})
 
     {#await network}
     <span>waiting...</span>
