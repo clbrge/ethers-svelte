@@ -24,6 +24,7 @@
     "@fontsource/fira-mono": "^4.5.0",
     "@lukeed/uuid": "^2.0.0",
     "cookie": "^0.4.1",
+    "dotenv": "^10.0.0",
     "rollup-plugin-polyfill-node": "^0.8.0",
     "svelte-ethers-store": "file:../",
     "svelte-proxied-store": "^0.1.2"

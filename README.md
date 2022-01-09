@@ -218,8 +218,12 @@ defaultEvmStores.disconnect()
 
 The information returned by the `chainData` store depends (like all
 other ethers stores) on which chain the current provider is
-connected. If the store has not yet been connected (with `setProvider`
-or `setBrowserProvider`), the store value will be `undefined`.
+connected. If the store has not yet been connected (with
+`setProvider`), the store value will be `undefined`.
+
+This object is extremely useful to build components that reactively
+update all variables elements that depends on the current active chain
+or account.
 
 Below is the CAIP-2 formatted information when the default store is 
 connected with the Ethereum Mainnet :
@@ -228,7 +232,7 @@ connected with the Ethereum Mainnet :
 {
   "name": "Ethereum Mainnet",
   "chain": "ETH",
-  "network": "mainnet",
+  "icon": "ethereum",
   "rpc": [
     "https://mainnet.infura.io/v3/${INFURA_API_KEY}",
     "https://api.mycryptoapi.com/eth"
@@ -243,11 +247,11 @@ connected with the Ethereum Mainnet :
   "shortName": "eth",
   "chainId": 1,
   "networkId": 1,
-  "icon": "ethereum",
+  "slip44": 60,
+  "ens": { "registry": "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e" },
   "explorers": [{
     "name": "etherscan",
     "url": "https://etherscan.io",
-    "icon": "etherscan",
     "standard": "EIP3091"
   }]
 }

@@ -13,16 +13,26 @@
   },
   "scripts": {
     "update-chains": "node ./scripts/update-chains.js",
+    "lint": "prettier-standard --lint 'src/**/*.js'",
     "build": "rollup -c"
   },
   "dependencies": {
     "ethers": "^5.0.0",
     "svelte": "^3.0.0",
-    "svelte-proxied-store": "^1.1.0"
+    "svelte-proxied-store": "^1.1.3"
   },
   "devDependencies": {
+    "lint-staged": "^12.1.7",
+    "prettier-standard": "^16.4.1",
     "release-it": "^14.11.8",
-    "rollup": "^2.62.0"
+    "rollup": "^2.63.0",
+    "svelte": "^3.45.0",
+    "ethers": "^5.5.3"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier-standard --lint"
+    ]
   },
   "release-it": {
     "gitlab": {

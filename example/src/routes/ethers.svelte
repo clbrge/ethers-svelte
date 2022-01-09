@@ -39,7 +39,7 @@
     pending = true
     let WalletConnectProvider = window.WalletConnectProvider.default
     const provider = new WalletConnectProvider({
-      infuraId: "27e484dcd9e3efcfd25a83a78777cdf1", // Required
+      infuraId: import.meta.env.VITE_INFURA_API_KEY
     })
     //  Enable session (triggers QR Code modal)
     await provider.enable();
@@ -70,6 +70,22 @@
   </p>
 
 
+  <p>Choose the provider:</p>
+  <button disabled={pending} on:click={connect}>Connect with {type}</button>
+  <select bind:value={type}>
+    <option value="Browser">Browser (window.ethereum)</option>
+    <option value="Localhost">Localhost (eg ganache or hardhat on http://127.0.0.1:8545)</option>
+    <option value="Localhost4">Localhost using account index 4</option>
+    <option value="RPC">https://rpc.xdaichain.com/ (RPC)</option>
+    <option value="Infura">ethers.providers.InfuraProvider('ropsten')</option>
+    <option value="Etherscan">ethers.providers.EtherscanProvider('rinkeby')</option>
+    <option value="Alchemy">ethers.providers.AlchemyProvider('ropsten')</option>
+    <option value="Clouflare">ethers.providers.CloudflareProvider()</option>
+  </select>
+
+  <button disabled={pending} on:click={enable}>Connect with Web3modal</button>
+  {#if pending}connecting...{/if}
+
 
   {#if $connected}
 
@@ -91,24 +107,6 @@
   </p>
 
   <button on:click={disconnect}> Disconnect </button>
-
-  {:else}
-
-  <p>Choose the provider:</p>
-  <button disabled={pending} on:click={connect}>Connect with {type}</button>
-  <select bind:value={type}>
-    <option value="Browser">Browser (window.ethereum)</option>
-    <option value="Localhost">Localhost (eg ganache or hardhat on http://127.0.0.1:8545)</option>
-    <option value="Localhost4">Localhost using account index 4</option>
-    <option value="RPC">https://rpc.xdaichain.com/ (RPC)</option>
-    <option value="Infura">ethers.providers.InfuraProvider('ropsten')</option>
-    <option value="Etherscan">ethers.providers.EtherscanProvider('rinkeby')</option>
-    <option value="Alchemy">ethers.providers.AlchemyProvider('ropsten')</option>
-    <option value="Clouflare">ethers.providers.CloudflareProvider()</option>
-  </select>
-
-  <button disabled={pending} on:click={enable}>Connect with Web3modal</button>
-  {#if pending}connecting...{/if}
 
   {/if}
 
