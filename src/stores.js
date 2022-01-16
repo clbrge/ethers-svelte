@@ -146,11 +146,9 @@ export const createStore = () => {
     }
     const { chainId } = await provider.getNetwork()
     let signer, signerAddress
-    // some providers do not support getSigner
+    // XXX some providers do not support getSigner
     try {
       if (typeof provider.listAccounts === 'function') {
-        // const accounts = (await provider.listAccounts()) || []
-        // check account ?
         signer = provider.getSigner(addressOrIndex)
       } else {
         signer = provider.getSigner()
