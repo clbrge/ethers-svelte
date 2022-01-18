@@ -186,7 +186,7 @@ export const createStore = () => {
 
 const allStores = {}
 
-const noData = { rpc: [], faucets: [], nativeCurrency: {} }
+const noData = { rpc: [], explorers: [{}], faucets: [], nativeCurrency: {} }
 
 const getData = id => {
   if (utils.isHexString(id)) id = parseInt(id, 16)
