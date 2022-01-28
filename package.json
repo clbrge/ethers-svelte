@@ -2,11 +2,19 @@
   "name": "svelte-ethers-store",
   "version": "0.6.3",
   "description": "Ethers.js library as a collection of stores for Svelte, Sapper or SvelteKit.",
+  "license": "MIT",
+  "repository": "gitlab:clb1/svelte-ethers-store",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "svelte": "src/stores.js",
-  "license": "MIT",
-  "repository": "gitlab:clb1/svelte-ethers-store",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "main": "./dist/index.js",
+      "module": "./dist/index.mjs",
+      "svelte": "./src/stores.js"
+    }
+  },
   "author": {
     "name": "Christophe Le Bars",
     "email": "<clb@toort.net>"
