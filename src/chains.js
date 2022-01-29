@@ -1018,6 +1018,26 @@ const chains = [
     networkId: 69
   },
   {
+    name: 'Conflux Testnet',
+    chain: 'Conflux',
+    network: 'testnet',
+    rpc: [ 'https://evmtestnet.confluxrpc.com' ],
+    faucets: [],
+    nativeCurrency: { name: 'CFX', symbol: 'CFX', decimals: 18 },
+    infoURL: 'https://confluxnetwork.org',
+    shortName: 'cfxtest',
+    chainId: 71,
+    networkId: 71,
+    icon: 'conflux',
+    explorers: [
+      {
+        name: 'Conflux Scan',
+        url: 'https://evmtestnet.confluxscan.io',
+        standard: 'none'
+      }
+    ]
+  },
+  {
     name: 'Mix',
     chain: 'MIX',
     rpc: [ 'https://rpc2.mix-blockchain.org:8647' ],
@@ -1157,12 +1177,111 @@ const chains = [
     chain: 'TOMO',
     rpc: [ 'https://rpc.tomochain.com' ],
     faucets: [],
-    nativeCurrency: { name: 'TomoChain Ether', symbol: 'TOMO', decimals: 18 },
-    infoURL: 'https://tomocoin.io',
+    nativeCurrency: { name: 'TomoChain', symbol: 'TOMO', decimals: 18 },
+    infoURL: 'https://tomochain.com',
     shortName: 'tomo',
     chainId: 88,
     networkId: 88,
     slip44: 889
+  },
+  {
+    name: 'TomoChain Testnet',
+    chain: 'TOMO',
+    rpc: [ 'https://rpc.testnet.tomochain.com' ],
+    faucets: [],
+    nativeCurrency: { name: 'TomoChain', symbol: 'TOMO', decimals: 18 },
+    infoURL: 'https://tomochain.com',
+    shortName: 'tomot',
+    chainId: 89,
+    networkId: 89,
+    slip44: 889
+  },
+  {
+    name: 'Garizon Stage0',
+    chain: 'GAR',
+    network: 'mainnet',
+    icon: 'garizon',
+    rpc: [ 'https://s0.garizon.net/rpc' ],
+    faucets: [],
+    nativeCurrency: { name: 'Garizon', symbol: 'GAR', decimals: 18 },
+    infoURL: 'https://garizon.com',
+    shortName: 'gar-s0',
+    chainId: 90,
+    networkId: 90,
+    explorers: [
+      {
+        name: 'explorer',
+        url: 'https://explorer.garizon.com',
+        icon: 'garizon',
+        standard: 'EIP3091'
+      }
+    ]
+  },
+  {
+    name: 'Garizon Stage1',
+    chain: 'GAR',
+    network: 'mainnet',
+    icon: 'garizon',
+    rpc: [ 'https://s1.garizon.net/rpc' ],
+    faucets: [],
+    nativeCurrency: { name: 'Garizon', symbol: 'GAR', decimals: 18 },
+    infoURL: 'https://garizon.com',
+    shortName: 'gar-s1',
+    chainId: 91,
+    networkId: 91,
+    explorers: [
+      {
+        name: 'explorer',
+        url: 'https://explorer.garizon.com',
+        icon: 'garizon',
+        standard: 'EIP3091'
+      }
+    ],
+    parent: { chain: 'eip155-90', type: 'shard' }
+  },
+  {
+    name: 'Garizon Stage2',
+    chain: 'GAR',
+    network: 'mainnet',
+    icon: 'garizon',
+    rpc: [ 'https://s2.garizon.net/rpc' ],
+    faucets: [],
+    nativeCurrency: { name: 'Garizon', symbol: 'GAR', decimals: 18 },
+    infoURL: 'https://garizon.com',
+    shortName: 'gar-s2',
+    chainId: 92,
+    networkId: 92,
+    explorers: [
+      {
+        name: 'explorer',
+        url: 'https://explorer.garizon.com',
+        icon: 'garizon',
+        standard: 'EIP3091'
+      }
+    ],
+    parent: { chain: 'eip155-90', type: 'shard' }
+  },
+  {
+    name: 'Garizon Stage3',
+    chain: 'GAR',
+    network: 'mainnet',
+    icon: 'garizon',
+    rpc: [ 'https://s3.garizon.net/rpc' ],
+    faucets: [],
+    nativeCurrency: { name: 'Garizon', symbol: 'GAR', decimals: 18 },
+    infoURL: 'https://garizon.com',
+    shortName: 'gar-s3',
+    chainId: 93,
+    networkId: 93,
+    explorers: [
+      {
+        name: 'explorer',
+        url: 'https://explorer.garizon.com',
+        icon: 'garizon',
+        standard: 'EIP3091'
+      }
+    ],
+    parent: { chain: 'eip155-90', type: 'shard' }
   },
   {
     name: 'CryptoKylin Testnet',
@@ -2188,6 +2307,93 @@ const chains = [
     slip44: 5718350
   },
   {
+    name: 'Garizon Testnet Stage0',
+    chain: 'GAR',
+    network: 'testnet',
+    icon: 'garizon',
+    rpc: [ 'https://s0-testnet.garizon.net/rpc' ],
+    faucets: [ 'https://faucet-testnet.garizon.com' ],
+    nativeCurrency: { name: 'Garizon', symbol: 'GAR', decimals: 18 },
+    infoURL: 'https://garizon.com',
+    shortName: 'gar-test-s0',
+    chainId: 900,
+    networkId: 900,
+    explorers: [
+      {
+        name: 'explorer',
+        url: 'https://explorer-testnet.garizon.com',
+        icon: 'garizon',
+        standard: 'EIP3091'
+      }
+    ]
+  },
+  {
+    name: 'Garizon Testnet Stage1',
+    chain: 'GAR',
+    network: 'testnet',
+    icon: 'garizon',
+    rpc: [ 'https://s1-testnet.garizon.net/rpc' ],
+    faucets: [ 'https://faucet-testnet.garizon.com' ],
+    nativeCurrency: { name: 'Garizon', symbol: 'GAR', decimals: 18 },
+    infoURL: 'https://garizon.com',
+    shortName: 'gar-test-s1',
+    chainId: 901,
+    networkId: 901,
+    explorers: [
+      {
+        name: 'explorer',
+        url: 'https://explorer-testnet.garizon.com',
+        icon: 'garizon',
+        standard: 'EIP3091'
+      }
+    ],
+    parent: { chain: 'eip155-900', type: 'shard' }
+  },
+  {
+    name: 'Garizon Testnet Stage2',
+    chain: 'GAR',
+    network: 'testnet',
+    icon: 'garizon',
+    rpc: [ 'https://s2-testnet.garizon.net/rpc' ],
+    faucets: [ 'https://faucet-testnet.garizon.com' ],
+    nativeCurrency: { name: 'Garizon', symbol: 'GAR', decimals: 18 },
+    infoURL: 'https://garizon.com',
+    shortName: 'gar-test-s2',
+    chainId: 902,
+    networkId: 902,
+    explorers: [
+      {
+        name: 'explorer',
+        url: 'https://explorer-testnet.garizon.com',
+        icon: 'garizon',
+        standard: 'EIP3091'
+      }
+    ],
+    parent: { chain: 'eip155-900', type: 'shard' }
+  },
+  {
+    name: 'Garizon Testnet Stage3',
+    chain: 'GAR',
+    network: 'testnet',
+    icon: 'garizon',
+    rpc: [ 'https://s3-testnet.garizon.net/rpc' ],
+    faucets: [ 'https://faucet-testnet.garizon.com' ],
+    nativeCurrency: { name: 'Garizon', symbol: 'GAR', decimals: 18 },
+    infoURL: 'https://garizon.com',
+    shortName: 'gar-test-s3',
+    chainId: 903,
+    networkId: 903,
+    explorers: [
+      {
+        name: 'explorer',
+        url: 'https://explorer-testnet.garizon.com',
+        icon: 'garizon',
+        standard: 'EIP3091'
+      }
+    ],
+    parent: { chain: 'eip155-900', type: 'shard' }
+  },
+  {
     name: 'PulseChain Testnet',
     shortName: 'tpls',
     chain: 'tPLS',
@@ -2359,19 +2565,20 @@ const chains = [
     ]
   },
   {
-    name: 'Conflux',
+    name: 'Conflux Mainnet',
     chain: 'Conflux',
-    rpc: [ 'https://ethcore.confluxrpc.com' ],
+    rpc: [ 'https://evm.confluxrpc.com' ],
     faucets: [],
     nativeCurrency: { name: 'CFX', symbol: 'CFX', decimals: 18 },
     infoURL: 'https://confluxnetwork.org',
     shortName: 'cfx',
     chainId: 1030,
     networkId: 1030,
+    icon: 'conflux',
     explorers: [
       {
         name: 'Conflux Scan',
-        url: 'https://confluxscan.io',
+        url: 'https://evm.confluxscan.io',
         standard: 'none'
       }
     ]
