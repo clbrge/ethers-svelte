@@ -23,6 +23,7 @@
   "dependencies": {
     "@fontsource/fira-mono": "^4.5.1",
     "@lukeed/uuid": "^2.0.0",
+    "@openzeppelin/contracts": "^4.4.2",
     "cookie": "^0.4.1",
     "dotenv": "^14.3.2",
     "rollup-plugin-polyfill-node": "^0.8.0",

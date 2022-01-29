@@ -5,7 +5,7 @@ Use the [ethers.js library](https://docs.ethers.io/v5/) as a
 collection of [readable Svelte stores](https://svelte.dev/tutorial/readable-stores)
 for Svelte, Sapper or SvelteKit.
 
-If you prefer to use the [web3.js library](https://web3js.readthedocs.io/) to intereact
+If you prefer to use the [web3.js library](https://web3js.readthedocs.io/) to interact
 with EVM, you may be interested by the sister package [svelte-web3](https://www.npmjs.com/package/svelte-web3).
 
 ### Community
@@ -31,7 +31,7 @@ or the selected account change. You can import them directly in any
 Svelte or JavaScript files :
 
 ```js
-import { connected, provider, chainId, chainData, signer, signerAddress } from 'svelte-ethers-store'
+import { connected, provider, chainId, chainData, signer, signerAddress, contracts } from 'svelte-ethers-store'
 ```
 
  * connected: store value is true if a connection has been set up.
@@ -40,6 +40,7 @@ import { connected, provider, chainId, chainData, signer, signerAddress } from '
  * chainData: store value is the current blokchain CAIP-2 data (when connected), see below.
  * signer: store value is an Ethers.js Signer instance when connected.
  * signerAddress: store value is a shortcut to get `$signer.getAddress()` when connected.
+ * contract: store value is an Object for all ethers.Contract instances you need.
 
 For these stores to be useful in your Svelte application, a connection
 to an EVM blockchain first need to established . The abstract helper
@@ -164,7 +165,7 @@ prefix Svelte notation to access the stores values.
 Likewise use the `$` prefix Svelte notation to access Provider or Signer
 read-only abstractions and use the whole Ethers.js API. (beware, in the Ethers 
 library documentation, Provider or Signer instances are always noted as `provider`
- and `signer, without `$`, but in the context of `svelte-ethers-store`, this naming
+ and `signer`, without `$`, but in the context of `svelte-ethers-store`, this naming
 is used by the Svelte stores themselves encapsulating Provider or Signer instances).
 
 ```js
@@ -182,6 +183,66 @@ is used by the Svelte stores themselves encapsulating Provider or Signer instanc
 
 For providers that don't support `getSigner`, the value `$signer` will be `null`.
 
+
+### Using the contracts store for reactive contract calls
+
+To enjoy the same reactivity as using `$provider` and `$signer` but
+with a contract instance, you first need to declare its address and
+interface. To differenciate each `ethers.Contract` instance, you also
+need to define a logical name. That's the function `attachContract`:
+
+
+```html
+<script>
+
+  import { defaultEvmStores } from 'svelte-ethers-store'
+
+  // ... 
+
+  defaultEvmStores.attachContract('myContract',<address>, <abi>)
+
+</script>
+```
+
+`attachContract` only needs to be called once and can be called before
+connection since `ethers.Contract` instances will only be created when
+a connection becomes available. You may want to reattach new contract
+definition or abi for example when you the current network change. For
+the old definition will be overwritten and instance updated in the
+`contracts` store, simply use the same logical name.
+
+After a contract as be declared, you can use its instance anywhere
+using the `$` notation and the logical name :
+
+```html
+<script>
+
+  import { contracts } from 'svelte-ethers-store'
+
+  // ... 
+
+</script>
+
+
+  {#await $contracts.myContract.totalSupply()}
+
+  <span>waiting...</span>
+
+  {:then value}
+
+  <span>result of contract call totalSupply on my contract : { value }   </span>
+
+  {/await}
+
+```
+
+By default, `svelte-ethers-store` build contract instances using the signer if
+available and if not the provider. You may want to force using the current provider
+by passing `false` as fourth argument.
+
+```html
+  defaultEvmStores.attachContract('myContract', <address>, <abi>, <signerIfavailble>)
+```
 
 ### Reading stores outside of Svelte files
 

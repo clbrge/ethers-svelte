@@ -3,11 +3,17 @@
   import { onMount } from 'svelte'
 
   import { ethers } from 'ethers'
-  import { connected, provider, signer, signerAddress, defaultEvmStores } from 'svelte-ethers-store'
+  import { connected, provider, signer, chainId, signerAddress, defaultEvmStores } from 'svelte-ethers-store'
   //import Web3Modal from "web3modal"
+
+  import IERC20 from '@openzeppelin/contracts/build/contracts/IERC20.json'
 
   let type
   let pending = false
+
+  const LINK_ON_RINKEBY = '0x01be23585060835e02b77ef475b0cc51aa1e0709'
+  defaultEvmStores.attachContract('link', LINK_ON_RINKEBY, IERC20.abi)
+
 
   const connect = async () => {
     pending = true
@@ -29,6 +35,8 @@
       console.log('$provider', defaultEvmStores.$provider  )
       console.log('$signer', defaultEvmStores.$signer  )
       pending = false
+
+
     } catch(e) {
       console.log(e)
       pending = false
@@ -63,15 +71,17 @@
 </svelte:head>
 
 <div class="content">
-  <h1>About svelte-ethers-store</h1>
+  <h1>svelte-ethers-store: using setProvider()</h1>
 
   <p>
-	Here is a simple example with many type of persistent connection using svelte-ethers-store.
+	Before using any stores, you need to establish a connection to an EVM blockchain.
+    Here are a few examples to connect to the provider, RPC or others providers.
+    Check the code and the README to learn more.
   </p>
 
 
   <p>Choose the provider:</p>
-  <button disabled={pending} on:click={connect}>Connect with {type}</button>
+  <button class="button" disabled={pending} on:click={connect}>Connect with {type}</button>
   <select bind:value={type}>
     <option value="Browser">Browser (window.ethereum)</option>
     <option value="Localhost">Localhost (eg ganache or hardhat on http://127.0.0.1:8545)</option>
@@ -83,7 +93,7 @@
     <option value="Clouflare">ethers.providers.CloudflareProvider()</option>
   </select>
 
-  <button disabled={pending} on:click={enable}>Connect with Web3modal</button>
+  <button class="button" disabled={pending} on:click={enable}>Connect with Web3modal</button>
   {#if pending}connecting...{/if}
 
 
@@ -106,16 +116,19 @@
 
   </p>
 
-  <button on:click={disconnect}> Disconnect </button>
+  <button class="button" on:click={disconnect}> Disconnect </button>
 
   {/if}
 
 </div>
 
 <style>
-	.content {
-		width: 100%;
-		max-width: var(--column-width);
-		margin: var(--column-margin-top) auto 0 auto;
-	}
+
+.content {
+  width: 100%;
+  max-width: var(--column-width);
+  margin: var(--column-margin-top) auto 0 auto;
+}
+
+
 </style>

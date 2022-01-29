@@ -37,14 +37,8 @@ export const createStore = () => {
     signerAddress, // not used
     addressOrIndex = 0
   }) => {
-    console.log(
-      'switch1193Provider',
-      { chainId, signerAddress },
-      get('provider'),
-      get('eipProvider')
-    )
     if (!get('provider')) {
-      console.log('lost connection')
+      //console.log('lost connection')
       init()
       emit()
       return
@@ -56,7 +50,7 @@ export const createStore = () => {
     try {
       signerAddress = await signer.getAddress()
     } catch (e) {
-      console.warn(e)
+      console.warn('[svelte-ethers-store] '+e)
     }
     assign({
       connected: true,
@@ -155,7 +149,7 @@ export const createStore = () => {
       }
       signerAddress = await signer.getAddress()
     } catch (e) {
-      console.warn(e)
+      console.warn('[svelte-ethers-store] '+e)
     }
     assign({
       signer,
@@ -184,6 +178,23 @@ export const createStore = () => {
   }
 }
 
+export const createContractStore = () => {
+  const { emit, get, subscribe, assign, deleteAll } = proxied()
+
+  const attachContract = async (name, address, abi, fromSigner = true) => {
+    assign({
+      [name]: [address, abi, fromSigner]
+    })
+    emit()
+  }
+
+  return {
+    attachContract,
+    subscribe,
+    get
+  }
+}
+
 const allStores = {}
 
 const noData = { rpc: [], explorers: [{}], faucets: [], nativeCurrency: {} }
@@ -202,11 +213,14 @@ const subStoreNames = [
   'chainId',
   'chainData',
   'signer',
-  'signerAddress'
+  'signerAddress',
+  'evmProviderType',
+  'contracts'
 ]
 
 export const makeEvmStores = name => {
   const evmStore = (allStores[name] = createStore())
+  const registry = createContractStore()
 
   allStores[name].connected = derived(
     evmStore,
@@ -230,6 +244,22 @@ export const makeEvmStores = name => {
     $evmStore => $evmStore.evmProviderType
   )
 
+  allStores[name].contracts = derived(
+    [ evmStore, registry ],
+    ([ $evmStore, $registry ]) => {
+      const target = {}
+      if (!$evmStore.connected) return target
+      for (let key of Object.keys($registry)) {
+        target[key] = new ethers.Contract(
+          $registry[key][0],
+          $registry[key][1],
+          !$registry[key][2] || !$evmStore.signer ? $evmStore.provider : $evmStore.signer
+        )
+      }
+      return target
+    }
+  )
+
   return new Proxy(allStores[name], {
     get: function (internal, property) {
       if (/^\$/.test(property)) {
@@ -239,6 +269,7 @@ export const makeEvmStores = name => {
           return allStores[name].get(property)
         throw new Error(`[svelte-ethers-store] no store named ${property}`)
       }
+      if (property === 'attachContract') return registry.attachContract
       if (
         [
           'setBrowserProvider',
@@ -253,11 +284,6 @@ export const makeEvmStores = name => {
   })
 }
 
-/*
-TODO contract store
-BaseContract BigNumber Contract ContractFactory FixedNumber Signer VoidSigner Wallet
-Wordlist constants errors ethers getDefaultProvider logger providers utils version wordlists
-*/
 
 export const getChainStore = name => {
   if (!allStores[name])
@@ -275,5 +301,7 @@ export const chainId = allStores.default.chainId
 export const signer = allStores.default.signer
 export const signerAddress = allStores.default.signerAddress
 export const evmProviderType = allStores.default.evmProviderType
+
+export const contracts = allStores.default.contracts
 
 export const chainData = allStores.default.chainData
