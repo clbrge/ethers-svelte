@@ -39,19 +39,30 @@ const chains = [
     slip44: 40
   },
   {
-    name: 'Ethereum Testnet Ropsten',
+    name: 'Ropsten',
+    title: 'Ethereum Testnet Ropsten',
     chain: 'ETH',
     rpc: [
       'https://ropsten.infura.io/v3/${INFURA_API_KEY}',
       'wss://ropsten.infura.io/ws/v3/${INFURA_API_KEY}'
     ],
-    faucets: [ 'https://faucet.ropsten.be?${ADDRESS}' ],
+    faucets: [
+      'http://fauceth.komputing.org?chain=3&address=${ADDRESS}',
+      'https://faucet.ropsten.be?${ADDRESS}'
+    ],
     nativeCurrency: { name: 'Ropsten Ether', symbol: 'ROP', decimals: 18 },
     infoURL: 'https://github.com/ethereum/ropsten',
     shortName: 'rop',
     chainId: 3,
     networkId: 3,
-    ens: { registry: '0x112234455c3a32fd11230c42e7bccd4a84e02010' }
+    ens: { registry: '0x112234455c3a32fd11230c42e7bccd4a84e02010' },
+    explorers: [
+      {
+        name: 'etherscan',
+        url: 'https://ropsten.etherscan.io',
+        standard: 'EIP3091'
+      }
+    ]
   },
   {
     name: 'Rinkeby',
@@ -1517,6 +1528,26 @@ const chains = [
     nativeCurrency: { name: 'Decentralized Web Utility', symbol: 'DWU', decimals: 18 }
   },
   {
+    name: 'OYchain Testnet',
+    chain: 'OYchain',
+    icon: 'oychain',
+    rpc: [ 'https://rpc.cntop3.com' ],
+    faucets: [ 'https://faucet.cntop3.com' ],
+    nativeCurrency: { name: 'OYchain Token', symbol: 'OY', decimals: 18 },
+    infoURL: 'https://www.cntop3.com',
+    shortName: 'oychain',
+    chainId: 126,
+    networkId: 126,
+    slip44: 126,
+    explorers: [
+      {
+        name: 'OYchain Explorer',
+        url: 'https://scan.cntop3.com',
+        standard: 'none'
+      }
+    ]
+  },
+  {
     name: 'Factory 127 Mainnet',
     chain: 'FETH',
     rpc: [],
@@ -2173,9 +2204,9 @@ const chains = [
       'wss://rpc-ws-mainnet.bcsdev.io'
     ],
     faucets: [],
-    nativeCurrency: { name: 'BCS Token', symbol: 'PLAY', decimals: 18 },
+    nativeCurrency: { name: 'BCS Token', symbol: 'BCS', decimals: 18 },
     infoURL: 'https://blockchainstation.io',
-    shortName: 'play',
+    shortName: 'bcs',
     chainId: 707,
     networkId: 707,
     explorers: [
@@ -2194,9 +2225,9 @@ const chains = [
       'wss://rpc-ws-testnet.bcsdev.io'
     ],
     faucets: [ 'https://faucet.bcsdev.io' ],
-    nativeCurrency: { name: 'BCS Testnet Token', symbol: 'tPLAY', decimals: 18 },
+    nativeCurrency: { name: 'BCS Testnet Token', symbol: 'tBCS', decimals: 18 },
     infoURL: 'https://blockchainstation.io',
-    shortName: 'tplay',
+    shortName: 'tbcs',
     chainId: 708,
     networkId: 708,
     explorers: [
@@ -3411,6 +3442,25 @@ const chains = [
     networkId: 10101
   },
   {
+    name: 'WAGMI',
+    chain: 'WAGMI',
+    icon: 'wagmi',
+    rpc: [ 'https://api.trywagmi.xyz/rpc' ],
+    faucets: [],
+    nativeCurrency: { name: 'WAGMI', symbol: 'WGM', decimals: 18 },
+    infoURL: 'https://trywagmi.xyz',
+    shortName: 'WAGMI',
+    chainId: 11111,
+    networkId: 11111,
+    explorers: [
+      {
+        name: 'WAGMI Explorer',
+        url: 'https://trywagmi.xyz',
+        standard: 'none'
+      }
+    ]
+  },
+  {
     name: 'Singularity ZERO Testnet',
     chain: 'ZERO',
     rpc: [ 'https://betaenv.singularity.gold:18545' ],
@@ -3961,7 +4011,8 @@ const chains = [
     networkId: 78110
   },
   {
-    name: 'Polygon Testnet Mumbai',
+    name: 'Mumbai',
+    title: 'Polygon Testnet Mumbai',
     chain: 'Polygon',
     rpc: [
       'https://matic-mumbai.chainstacklabs.com',

@@ -2,6 +2,8 @@
 
   import { connected, provider, contracts } from 'svelte-ethers-store'
 
+  import { test } from '$lib/cache'
+
   $: network = $connected ? $provider.getNetwork() : ''
 
 </script>

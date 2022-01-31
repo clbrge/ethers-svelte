@@ -221,6 +221,7 @@ const subStoreNames = [
 export const makeEvmStores = name => {
   const evmStore = (allStores[name] = createStore())
   const registry = createContractStore()
+  const target = {}
 
   allStores[name].connected = derived(
     evmStore,
@@ -247,7 +248,6 @@ export const makeEvmStores = name => {
   allStores[name].contracts = derived(
     [ evmStore, registry ],
     ([ $evmStore, $registry ]) => {
-      const target = {}
       if (!$evmStore.connected) return target
       for (let key of Object.keys($registry)) {
         target[key] = new ethers.Contract(
@@ -262,6 +262,7 @@ export const makeEvmStores = name => {
 
   return new Proxy(allStores[name], {
     get: function (internal, property) {
+      if (property === '$contracts') return target
       if (/^\$/.test(property)) {
         // TODO forbid deconstruction !
         property = property.slice(1)
