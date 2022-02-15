@@ -39,19 +39,30 @@ const chains = [
     slip44: 40
   },
   {
-    name: 'Ethereum Testnet Ropsten',
+    name: 'Ropsten',
+    title: 'Ethereum Testnet Ropsten',
     chain: 'ETH',
     rpc: [
       'https://ropsten.infura.io/v3/${INFURA_API_KEY}',
       'wss://ropsten.infura.io/ws/v3/${INFURA_API_KEY}'
     ],
-    faucets: [ 'https://faucet.ropsten.be?${ADDRESS}' ],
+    faucets: [
+      'http://fauceth.komputing.org?chain=3&address=${ADDRESS}',
+      'https://faucet.ropsten.be?${ADDRESS}'
+    ],
     nativeCurrency: { name: 'Ropsten Ether', symbol: 'ROP', decimals: 18 },
     infoURL: 'https://github.com/ethereum/ropsten',
     shortName: 'rop',
     chainId: 3,
     networkId: 3,
-    ens: { registry: '0x112234455c3a32fd11230c42e7bccd4a84e02010' }
+    ens: { registry: '0x112234455c3a32fd11230c42e7bccd4a84e02010' },
+    explorers: [
+      {
+        name: 'etherscan',
+        url: 'https://ropsten.etherscan.io',
+        standard: 'EIP3091'
+      }
+    ]
   },
   {
     name: 'Rinkeby',
@@ -1018,6 +1029,26 @@ const chains = [
     networkId: 69
   },
   {
+    name: 'Conflux Testnet',
+    chain: 'Conflux',
+    network: 'testnet',
+    rpc: [ 'https://evmtestnet.confluxrpc.com' ],
+    faucets: [],
+    nativeCurrency: { name: 'CFX', symbol: 'CFX', decimals: 18 },
+    infoURL: 'https://confluxnetwork.org',
+    shortName: 'cfxtest',
+    chainId: 71,
+    networkId: 71,
+    icon: 'conflux',
+    explorers: [
+      {
+        name: 'Conflux Scan',
+        url: 'https://evmtestnet.confluxscan.io',
+        standard: 'none'
+      }
+    ]
+  },
+  {
     name: 'Mix',
     chain: 'MIX',
     rpc: [ 'https://rpc2.mix-blockchain.org:8647' ],
@@ -1157,12 +1188,111 @@ const chains = [
     chain: 'TOMO',
     rpc: [ 'https://rpc.tomochain.com' ],
     faucets: [],
-    nativeCurrency: { name: 'TomoChain Ether', symbol: 'TOMO', decimals: 18 },
-    infoURL: 'https://tomocoin.io',
+    nativeCurrency: { name: 'TomoChain', symbol: 'TOMO', decimals: 18 },
+    infoURL: 'https://tomochain.com',
     shortName: 'tomo',
     chainId: 88,
     networkId: 88,
     slip44: 889
+  },
+  {
+    name: 'TomoChain Testnet',
+    chain: 'TOMO',
+    rpc: [ 'https://rpc.testnet.tomochain.com' ],
+    faucets: [],
+    nativeCurrency: { name: 'TomoChain', symbol: 'TOMO', decimals: 18 },
+    infoURL: 'https://tomochain.com',
+    shortName: 'tomot',
+    chainId: 89,
+    networkId: 89,
+    slip44: 889
+  },
+  {
+    name: 'Garizon Stage0',
+    chain: 'GAR',
+    network: 'mainnet',
+    icon: 'garizon',
+    rpc: [ 'https://s0.garizon.net/rpc' ],
+    faucets: [],
+    nativeCurrency: { name: 'Garizon', symbol: 'GAR', decimals: 18 },
+    infoURL: 'https://garizon.com',
+    shortName: 'gar-s0',
+    chainId: 90,
+    networkId: 90,
+    explorers: [
+      {
+        name: 'explorer',
+        url: 'https://explorer.garizon.com',
+        icon: 'garizon',
+        standard: 'EIP3091'
+      }
+    ]
+  },
+  {
+    name: 'Garizon Stage1',
+    chain: 'GAR',
+    network: 'mainnet',
+    icon: 'garizon',
+    rpc: [ 'https://s1.garizon.net/rpc' ],
+    faucets: [],
+    nativeCurrency: { name: 'Garizon', symbol: 'GAR', decimals: 18 },
+    infoURL: 'https://garizon.com',
+    shortName: 'gar-s1',
+    chainId: 91,
+    networkId: 91,
+    explorers: [
+      {
+        name: 'explorer',
+        url: 'https://explorer.garizon.com',
+        icon: 'garizon',
+        standard: 'EIP3091'
+      }
+    ],
+    parent: { chain: 'eip155-90', type: 'shard' }
+  },
+  {
+    name: 'Garizon Stage2',
+    chain: 'GAR',
+    network: 'mainnet',
+    icon: 'garizon',
+    rpc: [ 'https://s2.garizon.net/rpc' ],
+    faucets: [],
+    nativeCurrency: { name: 'Garizon', symbol: 'GAR', decimals: 18 },
+    infoURL: 'https://garizon.com',
+    shortName: 'gar-s2',
+    chainId: 92,
+    networkId: 92,
+    explorers: [
+      {
+        name: 'explorer',
+        url: 'https://explorer.garizon.com',
+        icon: 'garizon',
+        standard: 'EIP3091'
+      }
+    ],
+    parent: { chain: 'eip155-90', type: 'shard' }
+  },
+  {
+    name: 'Garizon Stage3',
+    chain: 'GAR',
+    network: 'mainnet',
+    icon: 'garizon',
+    rpc: [ 'https://s3.garizon.net/rpc' ],
+    faucets: [],
+    nativeCurrency: { name: 'Garizon', symbol: 'GAR', decimals: 18 },
+    infoURL: 'https://garizon.com',
+    shortName: 'gar-s3',
+    chainId: 93,
+    networkId: 93,
+    explorers: [
+      {
+        name: 'explorer',
+        url: 'https://explorer.garizon.com',
+        icon: 'garizon',
+        standard: 'EIP3091'
+      }
+    ],
+    parent: { chain: 'eip155-90', type: 'shard' }
   },
   {
     name: 'CryptoKylin Testnet',
@@ -1396,6 +1526,26 @@ const chains = [
     faucets: [],
     infoURL: 'https://decentralized-web.tech/dw_chain.php',
     nativeCurrency: { name: 'Decentralized Web Utility', symbol: 'DWU', decimals: 18 }
+  },
+  {
+    name: 'OYchain Testnet',
+    chain: 'OYchain',
+    icon: 'oychain',
+    rpc: [ 'https://rpc.cntop3.com' ],
+    faucets: [ 'https://faucet.cntop3.com' ],
+    nativeCurrency: { name: 'OYchain Token', symbol: 'OY', decimals: 18 },
+    infoURL: 'https://www.cntop3.com',
+    shortName: 'oychain',
+    chainId: 126,
+    networkId: 126,
+    slip44: 126,
+    explorers: [
+      {
+        name: 'OYchain Explorer',
+        url: 'https://scan.cntop3.com',
+        standard: 'none'
+      }
+    ]
   },
   {
     name: 'Factory 127 Mainnet',
@@ -2054,9 +2204,9 @@ const chains = [
       'wss://rpc-ws-mainnet.bcsdev.io'
     ],
     faucets: [],
-    nativeCurrency: { name: 'BCS Token', symbol: 'PLAY', decimals: 18 },
+    nativeCurrency: { name: 'BCS Token', symbol: 'BCS', decimals: 18 },
     infoURL: 'https://blockchainstation.io',
-    shortName: 'play',
+    shortName: 'bcs',
     chainId: 707,
     networkId: 707,
     explorers: [
@@ -2075,9 +2225,9 @@ const chains = [
       'wss://rpc-ws-testnet.bcsdev.io'
     ],
     faucets: [ 'https://faucet.bcsdev.io' ],
-    nativeCurrency: { name: 'BCS Testnet Token', symbol: 'tPLAY', decimals: 18 },
+    nativeCurrency: { name: 'BCS Testnet Token', symbol: 'tBCS', decimals: 18 },
     infoURL: 'https://blockchainstation.io',
-    shortName: 'tplay',
+    shortName: 'tbcs',
     chainId: 708,
     networkId: 708,
     explorers: [
@@ -2186,6 +2336,93 @@ const chains = [
     chainId: 888,
     networkId: 888,
     slip44: 5718350
+  },
+  {
+    name: 'Garizon Testnet Stage0',
+    chain: 'GAR',
+    network: 'testnet',
+    icon: 'garizon',
+    rpc: [ 'https://s0-testnet.garizon.net/rpc' ],
+    faucets: [ 'https://faucet-testnet.garizon.com' ],
+    nativeCurrency: { name: 'Garizon', symbol: 'GAR', decimals: 18 },
+    infoURL: 'https://garizon.com',
+    shortName: 'gar-test-s0',
+    chainId: 900,
+    networkId: 900,
+    explorers: [
+      {
+        name: 'explorer',
+        url: 'https://explorer-testnet.garizon.com',
+        icon: 'garizon',
+        standard: 'EIP3091'
+      }
+    ]
+  },
+  {
+    name: 'Garizon Testnet Stage1',
+    chain: 'GAR',
+    network: 'testnet',
+    icon: 'garizon',
+    rpc: [ 'https://s1-testnet.garizon.net/rpc' ],
+    faucets: [ 'https://faucet-testnet.garizon.com' ],
+    nativeCurrency: { name: 'Garizon', symbol: 'GAR', decimals: 18 },
+    infoURL: 'https://garizon.com',
+    shortName: 'gar-test-s1',
+    chainId: 901,
+    networkId: 901,
+    explorers: [
+      {
+        name: 'explorer',
+        url: 'https://explorer-testnet.garizon.com',
+        icon: 'garizon',
+        standard: 'EIP3091'
+      }
+    ],
+    parent: { chain: 'eip155-900', type: 'shard' }
+  },
+  {
+    name: 'Garizon Testnet Stage2',
+    chain: 'GAR',
+    network: 'testnet',
+    icon: 'garizon',
+    rpc: [ 'https://s2-testnet.garizon.net/rpc' ],
+    faucets: [ 'https://faucet-testnet.garizon.com' ],
+    nativeCurrency: { name: 'Garizon', symbol: 'GAR', decimals: 18 },
+    infoURL: 'https://garizon.com',
+    shortName: 'gar-test-s2',
+    chainId: 902,
+    networkId: 902,
+    explorers: [
+      {
+        name: 'explorer',
+        url: 'https://explorer-testnet.garizon.com',
+        icon: 'garizon',
+        standard: 'EIP3091'
+      }
+    ],
+    parent: { chain: 'eip155-900', type: 'shard' }
+  },
+  {
+    name: 'Garizon Testnet Stage3',
+    chain: 'GAR',
+    network: 'testnet',
+    icon: 'garizon',
+    rpc: [ 'https://s3-testnet.garizon.net/rpc' ],
+    faucets: [ 'https://faucet-testnet.garizon.com' ],
+    nativeCurrency: { name: 'Garizon', symbol: 'GAR', decimals: 18 },
+    infoURL: 'https://garizon.com',
+    shortName: 'gar-test-s3',
+    chainId: 903,
+    networkId: 903,
+    explorers: [
+      {
+        name: 'explorer',
+        url: 'https://explorer-testnet.garizon.com',
+        icon: 'garizon',
+        standard: 'EIP3091'
+      }
+    ],
+    parent: { chain: 'eip155-900', type: 'shard' }
   },
   {
     name: 'PulseChain Testnet',
@@ -2359,19 +2596,20 @@ const chains = [
     ]
   },
   {
-    name: 'Conflux',
+    name: 'Conflux Mainnet',
     chain: 'Conflux',
-    rpc: [ 'https://ethcore.confluxrpc.com' ],
+    rpc: [ 'https://evm.confluxrpc.com' ],
     faucets: [],
     nativeCurrency: { name: 'CFX', symbol: 'CFX', decimals: 18 },
     infoURL: 'https://confluxnetwork.org',
     shortName: 'cfx',
     chainId: 1030,
     networkId: 1030,
+    icon: 'conflux',
     explorers: [
       {
         name: 'Conflux Scan',
-        url: 'https://confluxscan.io',
+        url: 'https://evm.confluxscan.io',
         standard: 'none'
       }
     ]
@@ -3204,6 +3442,25 @@ const chains = [
     networkId: 10101
   },
   {
+    name: 'WAGMI',
+    chain: 'WAGMI',
+    icon: 'wagmi',
+    rpc: [ 'https://api.trywagmi.xyz/rpc' ],
+    faucets: [],
+    nativeCurrency: { name: 'WAGMI', symbol: 'WGM', decimals: 18 },
+    infoURL: 'https://trywagmi.xyz',
+    shortName: 'WAGMI',
+    chainId: 11111,
+    networkId: 11111,
+    explorers: [
+      {
+        name: 'WAGMI Explorer',
+        url: 'https://trywagmi.xyz',
+        standard: 'none'
+      }
+    ]
+  },
+  {
     name: 'Singularity ZERO Testnet',
     chain: 'ZERO',
     rpc: [ 'https://betaenv.singularity.gold:18545' ],
@@ -3754,7 +4011,8 @@ const chains = [
     networkId: 78110
   },
   {
-    name: 'Polygon Testnet Mumbai',
+    name: 'Mumbai',
+    title: 'Polygon Testnet Mumbai',
     chain: 'Polygon',
     rpc: [
       'https://matic-mumbai.chainstacklabs.com',
