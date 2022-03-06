@@ -328,3 +328,10 @@ import { allChainsData } from 'svelte-ethers-store'
 
 console.log( allChainsData )
 ```
+
+## FAQ
+
+
+* `Cannot read property 'BN' of undefined` using SvelteKit : `ethers` has
+   not been detected by Vite. You need `import ethers` somewhere in your app or
+   add `optimizeDeps: { include: [ 'ethers' ] }`  in `svelte.config.js`
