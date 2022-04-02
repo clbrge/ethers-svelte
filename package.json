@@ -34,9 +34,9 @@
   "devDependencies": {
     "lint-staged": "^12.3.7",
     "prettier-standard": "^16.4.1",
-    "release-it": "^14.13.1",
+    "release-it": "^14.14.0",
     "rollup": "^2.70.1",
-    "svelte": "^3.46.4",
+    "svelte": "^3.46.6",
     "ethers": "^5.6.2",
     "rollup-plugin-dts": "^4.1.0"
   },
