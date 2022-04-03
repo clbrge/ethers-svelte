@@ -3316,6 +3316,18 @@ const chains = [
     networkId: 1657
   },
   {
+    name: 'LUDAN Mainnet',
+    chain: 'LUDAN',
+    rpc: [ 'http://rpc.ludan.org:55001/' ],
+    faucets: [],
+    nativeCurrency: { name: 'LUDAN', symbol: 'LUDAN', decimals: 18 },
+    infoURL: 'https://www.ludan.org/',
+    shortName: 'LUDAN',
+    icon: 'ludan',
+    chainId: 1688,
+    networkId: 1688
+  },
+  {
     name: 'Teslafunds',
     chain: 'TSF',
     rpc: [ 'https://tsfapi.europool.me' ],
@@ -5860,7 +5872,9 @@ const chains = [
     title: 'Ethereum Testnet Sepolia',
     chain: 'ETH',
     rpc: [],
-    faucets: [],
+    faucets: [
+      'http://fauceth.komputing.org?chain=11155111&address=${ADDRESS}'
+    ],
     nativeCurrency: { name: 'Sepolia Ether', symbol: 'SEP', decimals: 18 },
     infoURL: 'https://sepolia.otterscan.io',
     shortName: 'sep',
