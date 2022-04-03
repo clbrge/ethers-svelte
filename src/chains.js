@@ -5568,30 +5568,6 @@ const chains = [
     ]
   },
   {
-    name: 'PlatON Dev Testnet',
-    chain: 'PlatON',
-    rpc: [
-      'https://devnetopenapi.platon.network/rpc',
-      'wss://devnetopenapi.platon.network/ws'
-    ],
-    faucets: [
-      'https://faucet.platon.network/faucet/?id=e5d32df10aee11ec911142010a667c03'
-    ],
-    nativeCurrency: { name: 'LAT', symbol: 'lat', decimals: 18 },
-    infoURL: 'https://www.platon.network',
-    shortName: 'platondev',
-    chainId: 210309,
-    networkId: 1,
-    icon: 'platon',
-    explorers: [
-      {
-        name: 'PlatON explorer',
-        url: 'https://devnetscan.platon.network',
-        standard: 'none'
-      }
-    ]
-  },
-  {
     name: 'PlatON Mainnet',
     chain: 'PlatON',
     network: 'mainnet',
@@ -5840,6 +5816,30 @@ const chains = [
         name: 'kintsugi explorer',
         url: 'https://explorer.kintsugi.themerge.dev',
         standard: 'EIP3091'
+      }
+    ]
+  },
+  {
+    name: 'PlatON Dev Testnet',
+    chain: 'PlatON',
+    rpc: [
+      'https://devnetopenapi.platon.network/rpc',
+      'wss://devnetopenapi.platon.network/ws'
+    ],
+    faucets: [
+      'https://faucet.platon.network/faucet/?id=e5d32df10aee11ec911142010a667c03'
+    ],
+    nativeCurrency: { name: 'LAT', symbol: 'lat', decimals: 18 },
+    infoURL: 'https://www.platon.network',
+    shortName: 'platondev',
+    chainId: 2203181,
+    networkId: 1,
+    icon: 'platon',
+    explorers: [
+      {
+        name: 'PlatON explorer',
+        url: 'https://devnetscan.platon.network',
+        standard: 'none'
       }
     ]
   },
