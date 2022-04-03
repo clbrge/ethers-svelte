@@ -260,6 +260,9 @@ export const makeEvmStores = name => {
     }
   )
 
+  // force one subscribtion on $contracts so it's defined via proxy
+  allStores[name].contracts.subscribe(()=>{})
+
   return new Proxy(allStores[name], {
     get: function (internal, property) {
       if (property === '$contracts') return target
