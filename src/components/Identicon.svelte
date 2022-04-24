@@ -8,7 +8,7 @@
   let img
 
   onMount(() => {
-    img.src = makeBlockie('0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8');
+    img.src = makeBlockie(address)
   })
 
 </script>
