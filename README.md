@@ -329,6 +329,28 @@ import { allChainsData } from 'svelte-ethers-store'
 console.log( allChainsData )
 ```
 
+
+## Ethers Svelte components [ experimental ]
+
+We plan to export generic Svelte low level components both to
+demonstrate the use of the `svelte-ethers-store` library and as
+resuable and composable best practices components. A `Balance` and
+`Identicon` components have been implemented for now. You are welcome
+to help define and develop new components by joining our discussions
+in our [Discord](https://discord.gg/7yXuwDwaHF).
+
+See also the `components` route in the example directory.
+
+```html
+  import { Balance } from 'svelte-ethers-store/components'
+</script>
+
+<p>balance = <Balance address="0x0000000000000000000000000000000000000000" /></p>
+
+```
+
+
+
 ## FAQ
 
 
