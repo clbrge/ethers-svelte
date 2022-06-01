@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte'
-  import { connected, provider, signerAddress } from 'svelte-ethers-store'
+  import { signerAddress } from 'svelte-ethers-store'
   import makeBlockie from 'ethereum-blockies-base64'
 
   export let address = $signerAddress
