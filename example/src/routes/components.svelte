@@ -4,7 +4,7 @@
 
   import { test } from '$lib/cache'
 
-  import { Balance, Identicon } from 'svelte-ethers-store/components'
+  import { Balance, Identicon, Jazzicon } from 'svelte-ethers-store/components'
 
 
   $: network = $connected ? $provider.getNetwork() : ''
@@ -32,7 +32,10 @@
 
   Identicon of {$signerAddress} : <Identicon address={$signerAddress} />
 
+  <hr />
+  <h2>{'<Jazzicon address={$signerAddress} />'}</h2>
 
+  Jazzicon of {$signerAddress} : <Jazzicon address={$signerAddress} />
 
   {:else}
 
@@ -42,9 +45,6 @@
   </p>
 
   {/if}
-
-
-
 
 
 </div>

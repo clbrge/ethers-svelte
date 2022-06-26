@@ -31,6 +31,7 @@
     "build": "rollup -c"
   },
   "dependencies": {
+    "@metamask/jazzicon": "^2.0.0",
     "ethereum-blockies-base64": "^1.0.2",
     "ethers": "^5.0.0",
     "svelte": "^3.0.0",
