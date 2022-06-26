@@ -329,6 +329,14 @@ import { allChainsData } from 'svelte-ethers-store'
 console.log( allChainsData )
 ```
 
+Another solution is to use the helper `getChainDataByChainId`. It returns
+the CAIP-2 data for a chainId or an empty object if not found.
+
+```js
+import { getChainDataByChainId } from 'svelte-ethers-store'
+
+console.log( getChainDataByChainId(5) )
+```
 
 ## Ethers Svelte components [ experimental ]
 
