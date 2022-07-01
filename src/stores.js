@@ -142,16 +142,18 @@ export const createStore = () => {
     }
     const { chainId } = await provider.getNetwork()
     let signer, signerAddress
-    // XXX some providers do not support getSigner
-    try {
-      if (typeof provider.listAccounts === 'function') {
-        signer = provider.getSigner(addressOrIndex)
-      } else {
-        signer = provider.getSigner()
+    if (addressOrIndex !== null) {
+      try {
+        // XXX some providers do not support getSigner
+        if (typeof provider.listAccounts === 'function') {
+          signer = provider.getSigner(addressOrIndex)
+        } else {
+          signer = provider.getSigner()
+        }
+        signerAddress = await signer.getAddress()
+      } catch (e) {
+        console.warn('[svelte-ethers-store] '+e)
       }
-      signerAddress = await signer.getAddress()
-    } catch (e) {
-      console.warn('[svelte-ethers-store] '+e)
     }
     assign({
       signer,

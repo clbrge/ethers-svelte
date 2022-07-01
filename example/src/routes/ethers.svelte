@@ -22,11 +22,12 @@
         Browser: () => defaultEvmStores.setProvider(),
         Localhost: () => defaultEvmStores.setProvider('http://127.0.0.1:8545'),
         Localhost4: () => defaultEvmStores.setProvider('http://127.0.0.1:8545', 4),
+        LocalhostNull: () => defaultEvmStores.setProvider('http://127.0.0.1:8545', null),
         RPC: () => defaultEvmStores.setProvider('https://rpc.xdaichain.com/'),
-        Infura: () => defaultEvmStores.setProvider(new ethers.providers.InfuraProvider("ropsten")),
-        Etherscan: () => defaultEvmStores.setProvider(new ethers.providers.EtherscanProvider("rinkeby")),
-        Alchemy: () => defaultEvmStores.setProvider(new ethers.providers.AlchemyProvider("ropsten")),
-        Clouflare: () => defaultEvmStores.setProvider(new ethers.providers.CloudflareProvider()),
+        Infura: () => defaultEvmStores.setProvider(new ethers.providers.InfuraProvider("ropsten"), null),
+        Etherscan: () => defaultEvmStores.setProvider(new ethers.providers.EtherscanProvider("rinkeby"), null),
+        Alchemy: () => defaultEvmStores.setProvider(new ethers.providers.AlchemyProvider("ropsten"), null),
+        Clouflare: () => defaultEvmStores.setProvider(new ethers.providers.CloudflareProvider(), null),
       }
 
       await handler[type]()
@@ -81,11 +82,12 @@
 
 
   <p>Choose the provider:</p>
-  <button class="button" disabled={pending} on:click={connect}>Connect with {type}</button>
+  <button class="button" disabled={pending} on:click={connect}>Connect with</button>
   <select bind:value={type}>
     <option value="Browser">Browser (window.ethereum)</option>
     <option value="Localhost">Localhost (eg ganache or hardhat on http://127.0.0.1:8545)</option>
     <option value="Localhost4">Localhost using account index 4</option>
+    <option value="LocalhostNull">Localhost but only provider (no signer)</option>
     <option value="RPC">https://rpc.xdaichain.com/ (RPC)</option>
     <option value="Infura">ethers.providers.InfuraProvider('ropsten')</option>
     <option value="Etherscan">ethers.providers.EtherscanProvider('rinkeby')</option>

@@ -135,6 +135,11 @@ of `setProvider()` to select another account than the default when possible.
 defaultEvmStores.setProvider(<Ethers provider>, <addressOrIndex>)
 ```
 
+If you don't need a signer, you might also call `setProvider` with the
+argument `addressOrIndex` as a `null` value and bypass any attempt to
+detect an account.
+
+
 ### Using the stores
 
 After a connection has been established, you may import the stores
