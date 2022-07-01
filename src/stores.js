@@ -66,7 +66,7 @@ export const createStore = () => {
       addressOrIndex:
         Array.isArray(accounts) && accounts.length ? accounts[0] : 0
     })
-  const chainChangedHandler = chainId => switch1193Provider({ chainId })
+  const chainChangedHandler = (eipProvider, addressOrIndex) => chainId => set1193Provider(eipProvider, addressOrIndex, chainId)
   // TODO better error support ?
   const disconnectHandler = error => switch1193Provider({ error })
 
@@ -86,7 +86,7 @@ export const createStore = () => {
     })
   }
 
-  const set1193Provider = async (eipProvider, addressOrIndex) => {
+  const set1193Provider = async (eipProvider, addressOrIndex, chainId) => {
     init()
     let accounts
     try {
@@ -108,10 +108,10 @@ export const createStore = () => {
     if (eipProvider.on) {
       // TODO handle disconnect/connect events
       eipProvider.on('accountsChanged', accountsChangedHandler)
-      eipProvider.on('chainChanged', chainChangedHandler)
+      eipProvider.on('chainChanged', chainChangedHandler(eipProvider, addressOrIndex))
       eipProvider.on('disconnect', disconnectHandler)
     }
-    return switch1193Provider({ addressOrIndex })
+    return switch1193Provider({ addressOrIndex, chainId })
   }
 
   const setProvider = async (provider, addressOrIndex = 0) => {
