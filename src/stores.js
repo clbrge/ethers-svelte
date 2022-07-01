@@ -29,6 +29,8 @@ const getWindowEthereum = () => {
   }
 }
 
+const alwaysNumber = n => utils.isHexString(n) ? parseInt(n, 16) : n
+
 export const createStore = () => {
   const { emit, get, subscribe, assign, deleteAll } = proxied()
 
@@ -44,7 +46,7 @@ export const createStore = () => {
       return
     }
     if (!chainId) {
-      chainId = (await get('provider').getNetwork()).chainId
+      chainId =  alwaysNumber((await get('provider').getNetwork()).chainId)
     }
     const signer = get('provider').getSigner(addressOrIndex)
     try {
@@ -66,7 +68,7 @@ export const createStore = () => {
       addressOrIndex:
         Array.isArray(accounts) && accounts.length ? accounts[0] : 0
     })
-  const chainChangedHandler = (eipProvider, addressOrIndex) => chainId => set1193Provider(eipProvider, addressOrIndex, chainId)
+  const chainChangedHandler = (eipProvider, addressOrIndex) => chainId => set1193Provider(eipProvider, addressOrIndex, alwaysNumber(chainId))
   // TODO better error support ?
   const disconnectHandler = error => switch1193Provider({ error })
 
@@ -156,7 +158,7 @@ export const createStore = () => {
       signerAddress,
       provider,
       connected: true,
-      chainId,
+      chainId: alwaysNumber(chainId),
       evmProviderType: provider.constructor.name
     })
     emit()
@@ -200,7 +202,6 @@ const allStores = {}
 const noData = { rpc: [], explorers: [{}], faucets: [], nativeCurrency: {} }
 
 const getData = id => {
-  if (utils.isHexString(id)) id = parseInt(id, 16)
   for (const data of chains) {
     if (data.chainId === id) return data
   }
@@ -231,7 +232,7 @@ export const makeEvmStores = name => {
   allStores[name].provider = derived(evmStore, $evmStore => $evmStore.provider)
   allStores[name].chainId = derived(evmStore, $evmStore => $evmStore.chainId)
   allStores[name].chainData = derived(evmStore, $evmStore =>
-    $evmStore.chainId ? getData($evmStore.chainId) : {}
+    $evmStore.chainId ? getData(alwaysNumber($evmStore.chainId)) : {}
   )
 
   allStores[name].signer = derived(evmStore, $evmStore => $evmStore.signer)

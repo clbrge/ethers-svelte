@@ -102,18 +102,31 @@
   <p>
 	Well done, you are now connected to the blockchain (account {$signerAddress})
 
+    Stores values:
+  </p>
+
+  <h3>Use the stores in your HTML to get responsive value of evm connection</h3>
+
+  <ul>
+    <li>$chainId: {$chainId}</li>
+    <li>$signerAddres: {$signerAddress}</li>
+  </ul>
+
+  <h3>await is also possible </h3>
+
+  <p>
     {#await network}
     <span>waiting...</span>
     {:then value}
     <span>{JSON.stringify(value)}</span>
     {/await}
 
+
     {#await account}
     <span>waiting...</span>
     {:then value}
     with {#if value}account {value}{:else}no account{/if}
     {/await}
-
   </p>
 
   <button class="button" on:click={disconnect}> Disconnect </button>
