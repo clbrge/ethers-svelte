@@ -28,14 +28,17 @@
   Balance of {$signerAddress} : <Balance address={$signerAddress} />
 
   <hr />
-  <h2>{'<Identicon address={$signerAddress} />'}</h2>
+  <h2>{'<Identicon address={$signerAddress} class="whatever" />'}</h2>
 
-  Identicon of {$signerAddress} : <Identicon address={$signerAddress} />
+  Identicon of {$signerAddress} :
+  <figure class="identicon">
+    <Identicon address={$signerAddress} class="whatever"  />
+  </figure>
 
   <hr />
-  <h2>{'<Jazzicon address={$signerAddress} />'}</h2>
+  <h2>{'<Jazzicon address={$signerAddress} class="whatever" />'}</h2>
 
-  Jazzicon of {$signerAddress} : <Jazzicon address={$signerAddress} />
+  Jazzicon of {$signerAddress} : <Jazzicon address={$signerAddress} class="whatever" />
 
   {:else}
 
@@ -50,9 +53,16 @@
 </div>
 
 <style>
-	.content {
-		width: 100%;
-		max-width: var(--column-width);
-		margin: var(--column-margin-top) auto 0 auto;
-	}
+.content {
+  width: 100%;
+  max-width: var(--column-width);
+  margin: var(--column-margin-top) auto 0 auto;
+}
+
+.identicon {
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+}
+
 </style>
