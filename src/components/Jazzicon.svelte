@@ -4,13 +4,13 @@
   import jazzicon from '@metamask/jazzicon'
 
   export let address = $signerAddress
-  export let size = 100
+  export let size = 30
 
   let target
 
   onMount(() => {
     const seed = parseInt(address.toLowerCase().slice(2, 10), 16)
-    target.appendChild(jazzicon(size, seed))
+    target.parentNode.replaceChild(jazzicon(size, seed), target)
   })
 
 </script>
