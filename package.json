@@ -1,6 +1,6 @@
 {
   "name": "svelte-ethers-store",
-  "version": "2.5.4",
+  "version": "2.5.5",
   "description": "Ethers.js library as a collection of stores for Svelte, Sapper or SvelteKit.",
   "license": "MIT",
   "repository": "gitlab:clb1/svelte-ethers-store",
