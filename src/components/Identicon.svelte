@@ -1,5 +1,4 @@
 <script>
-  import { onMount } from 'svelte'
   import { signerAddress } from 'svelte-ethers-store'
   import makeBlockie from 'ethereum-blockies-base64'
 
@@ -9,9 +8,9 @@
 
   let img
 
-  onMount(() => {
+  $: if (address && img) {
     img.src = makeBlockie(address)
-  })
+  }
 
 </script>
 

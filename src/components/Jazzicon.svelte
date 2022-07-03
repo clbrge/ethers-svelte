@@ -1,5 +1,4 @@
 <script>
-  import { onMount } from 'svelte'
   import { signerAddress } from 'svelte-ethers-store'
   import jazzicon from '@metamask/jazzicon'
 
@@ -10,12 +9,13 @@
 
   let target
 
-  onMount(() => {
+  $: if (address && size && target) {
     const seed = parseInt(address.toLowerCase().slice(2, 10), 16)
     const el = jazzicon(size, seed)
     if (importedClasses) el.setAttribute('class', importedClasses)
     target.parentNode.replaceChild(el, target)
-  })
+    target = el
+  }
 
 </script>
 
