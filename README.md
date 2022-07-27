@@ -323,7 +323,6 @@ connected with the Ethereum Mainnet :
 }
 ```
 
-
 You might want to access all chains CAIP-2 data directly without using the
 `chainData` store. In this case, use the getter `allChainsData`, it returns
 the list of all CAIP-2 data available.
@@ -334,8 +333,9 @@ import { allChainsData } from 'svelte-ethers-store'
 console.log( allChainsData )
 ```
 
-Another solution is to use the helper `getChainDataByChainId`. It returns
-the CAIP-2 data for a chainId or an empty object if not found.
+Another solution is to use the helper function `getChainDataByChainId`
+that takes the chainId as argument and returns
+the CAIP-2 data or an empty object if not found.
 
 ```js
 import { getChainDataByChainId } from 'svelte-ethers-store'
@@ -363,10 +363,19 @@ See also the `components` route in the example directory.
 ```
 
 
-
 ## FAQ
 
 
-* `Cannot read property 'BN' of undefined` using SvelteKit : `ethers` has
-   not been detected by Vite. You need `import ethers` somewhere in your app or
-   add `optimizeDeps: { include: [ 'ethers' ] }`  in `svelte.config.js`
+### *Cannot run using SvelteKit, I get error:* `Cannot read property 'BN' of undefined`
+
+The module `ethers` has not been detected by Vite. You need `import ethers` somewhere
+in your app or add `optimizeDeps: { include: [ 'ethers' ] }` in `svelte.config.js`
+
+
+### *how to auto-connect on page load?*
+
+It is out of scope of this package to implement this function but it
+generally depends on the type of provider you are using and a way to
+store connection information between page loads (for example by using
+localStorage).
+
