@@ -1,3 +1,5 @@
+
+
 import { ethers, utils } from 'ethers'
 import { proxied } from 'svelte-proxied-store'
 import { derived } from 'svelte/store'
@@ -29,6 +31,7 @@ const getWindowEthereum = () => {
   }
 }
 
+// always get chainId as number
 const alwaysNumber = n => utils.isHexString(n) ? parseInt(n, 16) : n
 
 export const createStore = () => {
@@ -305,12 +308,14 @@ export const getChainDataByChainId = id => (chains.filter(o => o.chainId === id)
 export const defaultEvmStores = makeEvmStores('default')
 
 export const connected = allStores.default.connected
-export const provider = allStores.default.provider
 export const chainId = allStores.default.chainId
+export const chainData = allStores.default.chainData
+
+export const provider = allStores.default.provider
 export const signer = allStores.default.signer
 export const signerAddress = allStores.default.signerAddress
-export const evmProviderType = allStores.default.evmProviderType
 
+export const evmProviderType = allStores.default.evmProviderType
 export const contracts = allStores.default.contracts
 
-export const chainData = allStores.default.chainData
+
