@@ -35,16 +35,16 @@
     "ethereum-blockies-base64": "^1.0.2",
     "ethers": "^5.0.0",
     "svelte": "^3.0.0",
-    "svelte-proxied-store": "^1.1.4"
+    "svelte-proxied-store": "^1.1.5"
   },
   "devDependencies": {
-    "ethers": "^5.7.0",
-    "lint-staged": "^13.0.3",
+    "ethers": "^5.7.2",
+    "lint-staged": "^13.1.0",
     "prettier-standard": "^16.4.1",
-    "release-it": "^15.4.0",
+    "release-it": "^15.5.1",
     "rollup": "^2.78.1",
     "rollup-plugin-dts": "^4.2.2",
-    "svelte": "^3.49.0"
+    "svelte": "^3.55.0"
   },
   "lint-staged": {
     "*": [
