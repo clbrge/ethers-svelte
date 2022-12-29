@@ -1,5 +1,5 @@
 <script>
-  import { connected, provider, signerAddress } from 'svelte-ethers-store'
+  import { connected, provider, signerAddress } from '../stores'
 
   export let address = $signerAddress
   export let pending = 'pending'

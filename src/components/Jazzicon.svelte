@@ -1,5 +1,6 @@
 <script>
-  import { signerAddress } from 'svelte-ethers-store'
+  import { signerAddress } from '../stores'
+
   import jazzicon from '@metamask/jazzicon'
 
   export let address = $signerAddress

@@ -1,5 +1,6 @@
 <script>
-  import { signerAddress } from 'svelte-ethers-store'
+  import { signerAddress } from '../stores'
+
   import makeBlockie from 'ethereum-blockies-base64'
 
   export let address = $signerAddress

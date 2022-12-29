@@ -1,6 +1,7 @@
 <script>
 	import { page } from '$app/stores';
-	import logo from './svelte-logo.svg';
+	import logo from '$lib/images/svelte-logo.svg';
+	import github from '$lib/images/github.svg';
 </script>
 
 <header>
@@ -15,11 +16,24 @@
 			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
 		</svg>
 		<ul>
-			<li class:active={$page.url.pathname === '/'}><a sveltekit:prefetch href="/">Home</a></li>
-			<li class:active={$page.url.pathname === '/about'}><a sveltekit:prefetch href="/about">About</a></li>
-			<li class:active={$page.url.pathname === '/ethers'}><a sveltekit:prefetch href="/ethers">setProvider()</a></li>
-			<li class:active={$page.url.pathname === '/contracts'}><a sveltekit:prefetch href="/contracts">$contracts</a></li>
-			<li class:active={$page.url.pathname === '/components'}><a sveltekit:prefetch href="/components">components</a></li>
+			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
+				<a href="/">Home</a>
+			</li>
+			<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
+				<a href="/about">About</a>
+			</li>
+			<li aria-current={$page.url.pathname.startsWith('/sverdle') ? 'page' : undefined}>
+				<a href="/sverdle">Sverdle</a>
+			</li>
+            <li aria-current={$page.url.pathname.startsWith('/ethers/set') ? 'page' : undefined}x>
+			  <a href="/ethers/set">setProvider()</a>
+			</li>
+            <li aria-current={$page.url.pathname.startsWith('/ethers/contracts') ? 'page' : undefined}x>
+			  <a href="/ethers/contracts">$contracts</a>
+			</li>
+            <li aria-current={$page.url.pathname.startsWith('/ethers/components') ? 'page' : undefined}x>
+			  <a href="/ethers/components">components</a>
+			</li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
@@ -27,7 +41,9 @@
 	</nav>
 
 	<div class="corner">
-		<!-- TODO put something else here? github link? -->
+		<a href="https://github.com/sveltejs/kit">
+			<img src={github} alt="GitHub" />
+		</a>
 	</div>
 </header>
 
@@ -90,7 +106,7 @@
 		height: 100%;
 	}
 
-	li.active::before {
+	li[aria-current='page']::before {
 		--size: 6px;
 		content: '';
 		width: 0;
@@ -99,15 +115,15 @@
 		top: 0;
 		left: calc(50% - var(--size));
 		border: var(--size) solid transparent;
-		border-top: var(--size) solid var(--accent-color);
+		border-top: var(--size) solid var(--color-theme-1);
 	}
 
 	nav a {
 		display: flex;
 		height: 100%;
 		align-items: center;
-		padding: 0 1em;
-		color: var(--heading-color);
+		padding: 0 0.5rem;
+		color: var(--color-text);
 		font-weight: 700;
 		font-size: 0.8rem;
 		text-transform: uppercase;
@@ -117,6 +133,6 @@
 	}
 
 	a:hover {
-		color: var(--accent-color);
+		color: var(--color-theme-1);
 	}
 </style>
