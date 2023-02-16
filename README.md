@@ -5,6 +5,8 @@ Use the [ethers.js library](https://docs.ethers.io/v5/) as a
 collection of [readable Svelte stores](https://svelte.dev/tutorial/readable-stores)
 for Svelte, Sapper or SvelteKit.
 
+This version only support ethers version 5.
+
 If you prefer to use the [web3.js library](https://web3js.readthedocs.io/) to interact
 with EVM, you may be interested by the sister package [svelte-web3](https://www.npmjs.com/package/svelte-web3).
 
