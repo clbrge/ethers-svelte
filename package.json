@@ -33,18 +33,18 @@
   "dependencies": {
     "@metamask/jazzicon": "^2.0.0",
     "ethereum-blockies-base64": "^1.0.2",
-    "ethers": "^5.0.0",
+    "ethers": "5.x",
     "svelte": "^3.0.0",
     "svelte-proxied-store": "^1.1.5"
   },
   "devDependencies": {
-    "ethers": "^5.7.2",
-    "lint-staged": "^13.1.0",
+    "ethers": "5.7.2",
+    "lint-staged": "^13.1.2",
     "prettier-standard": "^16.4.1",
-    "release-it": "^15.5.1",
+    "release-it": "^15.6.0",
     "rollup": "^2.78.1",
     "rollup-plugin-dts": "^4.2.2",
-    "svelte": "^3.55.0"
+    "svelte": "^3.55.1"
   },
   "lint-staged": {
     "*": [
