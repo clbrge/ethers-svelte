@@ -324,7 +324,6 @@ const chains = [
     icon: 'songbird',
     rpc: [
       'https://songbird-api.flare.network/ext/C/rpc',
-      'https://songbird.towolabs.com/ext/C/rpc',
       'https://sgb.ftso.com.au/ext/bc/C/rpc',
       'https://sgb.lightft.so/rpc',
       'https://sgb-rpc.ftso.eu'
@@ -1686,6 +1685,27 @@ const chains = [
     ]
   },
   {
+    name: 'Bitkub Chain',
+    chain: 'BKC',
+    icon: 'bkc',
+    rpc: [ 'https://rpc.bitkubchain.io', 'wss://wss.bitkubchain.io' ],
+    faucets: [],
+    nativeCurrency: { name: 'Bitkub Coin', symbol: 'KUB', decimals: 18 },
+    infoURL: 'https://www.bitkubchain.com/',
+    shortName: 'bkc',
+    chainId: 96,
+    networkId: 96,
+    explorers: [
+      {
+        name: 'Bitkub Chain Explorer',
+        url: 'https://bkcscan.com',
+        standard: 'none',
+        icon: 'bkc'
+      }
+    ],
+    redFlags: [ 'reusedChainId' ]
+  },
+  {
     name: 'Binance Smart Chain Testnet',
     chain: 'BSC',
     rpc: [
@@ -1993,6 +2013,25 @@ const chains = [
     chainId: 116,
     networkId: 116,
     explorers: []
+  },
+  {
+    name: 'Arcology Testnet',
+    chain: 'Arcology',
+    icon: 'acolicon',
+    rpc: [ 'https://testnet.arcology.network/rpc' ],
+    faucets: [],
+    nativeCurrency: { name: 'Arcology Coin', symbol: 'Acol', decimals: 18 },
+    infoURL: 'https://arcology.network/',
+    shortName: 'arcology',
+    chainId: 118,
+    networkId: 118,
+    explorers: [
+      {
+        name: 'arcology',
+        url: 'https://testnet.arcology.network/explorer',
+        standard: 'none'
+      }
+    ]
   },
   {
     name: 'ENULS Mainnet',
@@ -2787,24 +2826,29 @@ const chains = [
     ]
   },
   {
-    name: 'zkSync alpha testnet',
+    name: 'zkSync Era Testnet',
     chain: 'ETH',
     rpc: [ 'https://zksync2-testnet.zksync.dev' ],
-    faucets: [ 'https://portal.zksync.io/faucet' ],
+    faucets: [ 'https://goerli.portal.zksync.io/faucet' ],
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-    infoURL: 'https://v2-docs.zksync.io/',
+    infoURL: 'https://era.zksync.io/docs/',
     shortName: 'zksync-goerli',
     chainId: 280,
     networkId: 280,
-    icon: 'ethereum',
+    icon: 'zksync-era',
     explorers: [
       {
-        name: 'blockscout',
-        url: 'https://zksync2-testnet.zkscan.io',
-        icon: 'blockscout',
+        name: 'zkSync Era Block Explorer',
+        url: 'https://goerli.explorer.zksync.io',
+        icon: 'zksync-era',
         standard: 'EIP3091'
       }
-    ]
+    ],
+    parent: {
+      type: 'L2',
+      chain: 'eip155-1',
+      bridges: [ { url: 'https://goerli.portal.zksync.io/bridge' } ]
+    }
   },
   {
     name: 'Boba Network',
@@ -2833,6 +2877,124 @@ const chains = [
       chain: 'eip155-1',
       bridges: [ { url: 'https://gateway.boba.network' } ]
     }
+  },
+  {
+    name: 'Hedera Mainnet',
+    chain: 'Hedera',
+    icon: 'hedera',
+    rpc: [ 'https://mainnet.hashio.io/api' ],
+    features: [ { name: 'EIP155' }, { name: 'EIP1559' } ],
+    faucets: [],
+    nativeCurrency: { name: 'hbar', symbol: 'HBAR', decimals: 8 },
+    infoURL: 'https://hedera.com',
+    shortName: 'hedera-mainnet',
+    chainId: 295,
+    networkId: 295,
+    slip44: 3030,
+    explorers: [
+      {
+        name: 'HashScan',
+        url: 'https://hashscan.io/mainnet/dashboard',
+        standard: 'none'
+      },
+      {
+        name: 'Arkhia Explorer',
+        url: 'https://explorer.arkhia.io',
+        standard: 'none'
+      },
+      {
+        name: 'DragonGlass',
+        url: 'https://app.dragonglass.me',
+        standard: 'none'
+      },
+      {
+        name: 'Hedera Explorer',
+        url: 'https://hederaexplorer.io',
+        standard: 'none'
+      },
+      {
+        name: 'Ledger Works Explore',
+        url: 'https://explore.lworks.io',
+        standard: 'none'
+      }
+    ]
+  },
+  {
+    name: 'Hedera Testnet',
+    chain: 'Hedera',
+    icon: 'hedera',
+    rpc: [ 'https://testnet.hashio.io/api' ],
+    features: [ { name: 'EIP155' }, { name: 'EIP1559' } ],
+    faucets: [ 'https://portal.hedera.com' ],
+    nativeCurrency: { name: 'hbar', symbol: 'HBAR', decimals: 8 },
+    infoURL: 'https://hedera.com',
+    shortName: 'hedera-testnet',
+    chainId: 296,
+    networkId: 296,
+    slip44: 3030,
+    explorers: [
+      {
+        name: 'HashScan',
+        url: 'https://hashscan.io/testnet/dashboard',
+        standard: 'none'
+      },
+      {
+        name: 'Arkhia Explorer',
+        url: 'https://explorer.arkhia.io',
+        standard: 'none'
+      },
+      {
+        name: 'DragonGlass',
+        url: 'https://app.dragonglass.me',
+        standard: 'none'
+      },
+      {
+        name: 'Hedera Explorer',
+        url: 'https://hederaexplorer.io',
+        standard: 'none'
+      },
+      {
+        name: 'Ledger Works Explore',
+        url: 'https://explore.lworks.io',
+        standard: 'none'
+      }
+    ]
+  },
+  {
+    name: 'Hedera Previewnet',
+    chain: 'Hedera',
+    icon: 'hedera',
+    rpc: [ 'https://previewnet.hashio.io/api' ],
+    features: [ { name: 'EIP155' }, { name: 'EIP1559' } ],
+    faucets: [ 'https://portal.hedera.com' ],
+    nativeCurrency: { name: 'hbar', symbol: 'HBAR', decimals: 8 },
+    infoURL: 'https://hedera.com',
+    shortName: 'hedera-previewnet',
+    chainId: 297,
+    networkId: 297,
+    slip44: 3030,
+    explorers: [
+      {
+        name: 'HashScan',
+        url: 'https://hashscan.io/previewnet/dashboard',
+        standard: 'none'
+      }
+    ]
+  },
+  {
+    name: 'Hedera Localnet',
+    chain: 'Hedera',
+    icon: 'hedera',
+    rpc: [],
+    features: [ { name: 'EIP155' }, { name: 'EIP1559' } ],
+    faucets: [],
+    nativeCurrency: { name: 'hbar', symbol: 'HBAR', decimals: 8 },
+    infoURL: 'https://hedera.com',
+    shortName: 'hedera-localnet',
+    chainId: 298,
+    networkId: 298,
+    slip44: 3030,
+    explorers: []
   },
   {
     name: 'Optimism on Gnosis',
@@ -2970,25 +3132,29 @@ const chains = [
     ]
   },
   {
-    name: 'zkSync v2',
+    name: 'zkSync Era Mainnet',
     chain: 'ETH',
-    rpc: [],
+    rpc: [ 'https://zksync2-mainnet.zksync.io' ],
     faucets: [],
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     infoURL: 'https://zksync.io/',
     shortName: 'zksync',
     chainId: 324,
     networkId: 324,
-    icon: 'ethereum',
+    icon: 'zksync-era',
     explorers: [
       {
-        name: 'zkSync v2 Block Explorer',
+        name: 'zkSync Era Block Explorer',
         url: 'https://explorer.zksync.io',
+        icon: 'zksync-era',
         standard: 'EIP3091'
       }
     ],
-    parent: { type: 'L2', chain: 'eip155-1', bridges: [] },
-    status: 'incubating'
+    parent: {
+      type: 'L2',
+      chain: 'eip155-1',
+      bridges: [ { url: 'https://portal.zksync.io/bridge' } ]
+    }
   },
   {
     name: 'Web3Q Mainnet',
@@ -3629,6 +3795,24 @@ const chains = [
     shortName: 'mesh-chain-testnet',
     chainId: 600,
     networkId: 600
+  },
+  {
+    name: 'Graphlinq Blockchain Mainnet',
+    chain: 'GLQ Blockchain',
+    rpc: [ 'https://glq-dataseed.graphlinq.io' ],
+    faucets: [],
+    nativeCurrency: { name: 'GLQ', symbol: 'GLQ', decimals: 18 },
+    infoURL: 'https://graphlinq.io',
+    shortName: 'glq',
+    chainId: 614,
+    networkId: 614,
+    explorers: [
+      {
+        name: 'GLQ Explorer',
+        url: 'https://explorer.graphlinq.io',
+        standard: 'none'
+      }
+    ]
   },
   {
     name: 'SX Network Testnet',
@@ -4862,6 +5046,25 @@ const chains = [
     networkId: 1131,
     icon: 'defichain-network',
     explorers: []
+  },
+  {
+    name: 'AmStar Testnet',
+    chain: 'AmStar',
+    icon: 'amstar',
+    rpc: [ 'https://testnet-rpc.amstarscan.com' ],
+    faucets: [],
+    nativeCurrency: { name: 'SINSO', symbol: 'SINSO', decimals: 18 },
+    infoURL: 'https://sinso.io',
+    shortName: 'ASARt',
+    chainId: 1138,
+    networkId: 1138,
+    explorers: [
+      {
+        name: 'amstarscan-testnet',
+        url: 'https://testnet.amstarscan.com',
+        standard: 'EIP3091'
+      }
+    ]
   },
   {
     name: 'MathChain',
@@ -7674,6 +7877,25 @@ const chains = [
     ]
   },
   {
+    name: 'Hika Devnet',
+    chain: 'Hika Network Testnet',
+    icon: 'hik',
+    rpc: [ 'https://rpc-testnet.hika.network/' ],
+    faucets: [],
+    nativeCurrency: { name: 'Hik Token', symbol: 'HIK', decimals: 18 },
+    infoURL: 'https://hika.network/',
+    shortName: 'hik',
+    chainId: 5729,
+    networkId: 5729,
+    explorers: [
+      {
+        name: 'Hika Network Testnet Explorer',
+        url: 'https://scan-testnet.hika.network',
+        standard: 'none'
+      }
+    ]
+  },
+  {
     name: 'Ganache',
     title: 'Ganache GUI Ethereum Testnet',
     chain: 'ETH',
@@ -7975,8 +8197,13 @@ const chains = [
         standard: 'none'
       },
       {
-        name: 'Canto Cosmos Explorer (BigDipper)',
-        url: 'https://cosmos.explorer.canto.io',
+        name: 'Canto Cosmos Explorer',
+        url: 'https://cosmos-explorers.neobase.one',
+        standard: 'none'
+      },
+      {
+        name: 'Canto EVM Explorer (Blockscout)',
+        url: 'https://tuber.build',
         standard: 'none'
       }
     ]
@@ -8341,6 +8568,25 @@ const chains = [
     shortName: 'tmy',
     chainId: 8768,
     networkId: 8768
+  },
+  {
+    name: 'MARO Blockchain Mainnet',
+    chain: 'MARO Blockchain',
+    icon: 'MARO',
+    rpc: [ 'https://rpc-mainnet.ma.ro' ],
+    faucets: [],
+    nativeCurrency: { name: 'MARO', symbol: 'MARO', decimals: 18 },
+    infoURL: 'https://ma.ro/',
+    shortName: 'maro',
+    chainId: 8848,
+    networkId: 8848,
+    explorers: [
+      {
+        name: 'MARO Scan',
+        url: 'https://scan.ma.ro/#',
+        standard: 'none'
+      }
+    ]
   },
   {
     name: 'Unique',
@@ -9185,6 +9431,18 @@ const chains = [
         standard: 'EIP3091'
       }
     ]
+  },
+  {
+    name: 'BLG Testnet',
+    chain: 'BLG',
+    icon: 'blg',
+    rpc: [ 'https://rpc.blgchain.com' ],
+    faucets: [ 'https://faucet.blgchain.com' ],
+    nativeCurrency: { name: 'Blg', symbol: 'BLG', decimals: 18 },
+    infoURL: 'https://blgchain.com',
+    shortName: 'blgchain',
+    chainId: 12321,
+    networkId: 12321
   },
   {
     name: 'Step Testnet',
@@ -12484,7 +12742,7 @@ const chains = [
     chain: 'BRNKCTEST',
     icon: 'brnkc',
     rpc: [ 'https://brnkc-test.bearnetwork.net' ],
-    faucets: [],
+    faucets: [ 'https://faucet.bearnetwork.net' ],
     nativeCurrency: {
       name: 'Bear Network Chain Testnet Token',
       symbol: 'tBRNKC',

@@ -1,20 +1,20 @@
 {
-  "name": "svelte-ethers-store",
+  "name": "ethers-svelte",
   "version": "2.5.10",
-  "description": "Ethers.js library as a collection of stores for Svelte, Sapper or SvelteKit.",
+  "description": "Ethers.js library as a collection of stores for Svelte, Sapper or SvelteKit & related UX components.",
   "license": "MIT",
-  "repository": "gitlab:clb1/svelte-ethers-store",
+  "repository": "clbrge/ethers-svelte",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "svelte": "src/stores.js",
-  "types": "dist/svelte-ethers-store.d.ts",
+  "types": "dist/ethers-svelte.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "main": "./dist/index.js",
       "module": "./dist/index.mjs",
       "svelte": "./src/stores.js",
-      "types": "./dist/svelte-ethers-store.d.ts"
+      "types": "./dist/ethers-svelte.d.ts"
     },
     "./components": {
       "import": "./src/components/index.js",
@@ -33,12 +33,12 @@
   "dependencies": {
     "@metamask/jazzicon": "^2.0.0",
     "ethereum-blockies-base64": "^1.0.2",
-    "ethers": "5.x",
-    "svelte": "^3.0.0",
+    "ethers": "6.x",
+    "svelte": "3.x",
     "svelte-proxied-store": "^1.1.5"
   },
   "devDependencies": {
-    "ethers": "5.7.2",
+    "ethers": "^6.0.4",
     "lint-staged": "^13.1.2",
     "prettier-standard": "^16.4.1",
     "release-it": "^15.6.0",
