@@ -1,13 +1,15 @@
 
-# svelte-ethers-store
+# ethers-svelte
 
-Use the [ethers.js library](https://docs.ethers.io/v5/) as a
+Use the [ethers.js library](https://docs.ethers.io/) as a
 collection of [readable Svelte stores](https://svelte.dev/tutorial/readable-stores)
-for Svelte, Sapper or SvelteKit.
+for Svelte, Sapper or SvelteKit. This package includes also a few basic Svelte components
+for very typical usage of ethers.js: `Balance` `Identicon` `Jazzicon`.
 
-This version only support ethers version 5.
+:exclamation: This is an exeriemental version that only support ethers.js version 6. Please use the package
+[svelte-ethers-store](https://www.npmjs.com/package/svelte-ethers-store) for ethers.js version 5.
 
-If you prefer to use the [web3.js library](https://web3js.readthedocs.io/) to interact
+If you also use the [web3.js library](https://web3js.readthedocs.io/) to interact
 with EVM, you may be interested by the sister package [svelte-web3](https://www.npmjs.com/package/svelte-web3).
 
 ### Community
@@ -17,10 +19,10 @@ Discord](https://discord.gg/7yXuwDwaHF).
 
 ## Installation
 
-Add the `svelte-ethers-store` package
+Add the `ethers-svelte` package
 
 ```bash
-npm i svelte-ethers-store
+npm i ethers-svelte
 ```
 
 ## Basic usage (default stores connected to one chain)
@@ -33,12 +35,12 @@ or the selected account change. You can import them directly in any
 Svelte or JavaScript files :
 
 ```js
-import { connected, provider, chainId, chainData, signer, signerAddress, contracts } from 'svelte-ethers-store'
+import { connected, provider, chainId, chainData, signer, signerAddress, contracts } from 'ethers-svelte'
 ```
 
  * connected: store value is true if a connection has been set up.
  * provider: store value is an Ethers.js Provider instance when connected.
- * chainId: store value is the current chainId when connected.
+ * chainId: store value is the current chainId when connected (always BigInt)
  * chainData: store value is the current blokchain CAIP-2 data (when connected), see below.
  * signer: store value is an Ethers.js Signer instance when connected.
  * signerAddress: store value is a shortcut to get `$signer.getAddress()` when connected.
@@ -50,7 +52,7 @@ to an EVM blockchain first need to established . The abstract helper
 automatically instanciate all stores.
 
 ```js
-import { defaultEvmStores } from 'svelte-ethers-store'
+import { defaultEvmStores } from 'ethers-svelte'
 ```
 
 ### Connection with the browser provider (eg wallets like Metamask)
@@ -78,12 +80,8 @@ argument in SSR context.
   )
 ```
 
-`svelte-ethers-store` will automatically update the stores when the network or
+`ethers-svelte` will automatically update the stores when the network or
 accounts change and remove listeners at disconnection.
-
-:exclamation: previous version of `svelte-ethers-store` were using a special
-method `setBrowserProvider`. The former naming still works but will be
-removed in later versions. Please update your code!
 
 
 ### Connection with non injected EIP-1193 providers
@@ -105,7 +103,7 @@ const provider = await web3Modal.connect()
 defaultEvmStores.setProvider(provider)
 ```
 
-`svelte-ethers-store` will automatically update the stores when the network or
+`ethers-svelte` will automatically update the stores when the network or
 accounts change and remove listeners at disconnection.
 
 
@@ -152,7 +150,7 @@ prefix Svelte notation to access the stores values.
 ```html
 <script>
 
-  import { connected, chainId, signerAddress } from 'svelte-ethers-store'
+  import { connected, chainId, signerAddress } from 'ethers-svelte'
 
 </script>
 
@@ -172,11 +170,11 @@ prefix Svelte notation to access the stores values.
 Likewise use the `$` prefix Svelte notation to access Provider or Signer
 read-only abstractions and use the whole Ethers.js API. (beware, in the Ethers 
 library documentation, Provider or Signer instances are always noted as `provider`
- and `signer`, without `$`, but in the context of `svelte-ethers-store`, this naming
+ and `signer`, without `$`, but in the context of `ethers-svelte`, this naming
 is used by the Svelte stores themselves encapsulating Provider or Signer instances).
 
 ```js
-  import { connected, provider, signer } from 'svelte-ethers-store'
+  import { connected, provider, signer } from 'ethers-svelte'
 
   // ...
 
@@ -202,7 +200,7 @@ need to define a logical name. That's the function `attachContract`:
 ```html
 <script>
 
-  import { defaultEvmStores } from 'svelte-ethers-store'
+  import { defaultEvmStores } from 'ethers-svelte'
 
   // ... 
 
@@ -224,7 +222,7 @@ using the `$` notation and the logical name :
 ```html
 <script>
 
-  import { contracts } from 'svelte-ethers-store'
+  import { contracts } from 'ethers-svelte'
 
   // ... 
 
@@ -243,7 +241,7 @@ using the `$` notation and the logical name :
 
 ```
 
-By default, `svelte-ethers-store` build contract instances using the signer if
+By default, `ethers-svelte` build contract instances using the signer if
 available and if not the provider. You may want to force using the current provider
 by passing `false` as fourth argument.
 
@@ -260,7 +258,7 @@ you can use a special getter on the library abstract helper:
 
 ```js
 // this is not a Svelte file but a standard JavaScript file 
-import { defaultEvmStores } from 'svelte-ethers-store'
+import { defaultEvmStores } from 'ethers-svelte'
 
 if (defaultEvmStores.$selectedAccount) {
 
@@ -330,7 +328,7 @@ You might want to access all chains CAIP-2 data directly without using the
 the list of all CAIP-2 data available.
 
 ```js
-import { allChainsData } from 'svelte-ethers-store'
+import { allChainsData } from 'ethers-svelte'
 
 console.log( allChainsData )
 ```
@@ -340,15 +338,15 @@ that takes the chainId as argument and returns
 the CAIP-2 data or an empty object if not found.
 
 ```js
-import { getChainDataByChainId } from 'svelte-ethers-store'
+import { getChainDataByChainId } from 'ethers-svelte'
 
 console.log( getChainDataByChainId(5) )
 ```
 
-## Ethers Svelte components [ experimental ]
+## Ethers Svelte components
 
 We plan to export generic Svelte low level components both to
-demonstrate the use of the `svelte-ethers-store` library and as
+demonstrate the use of the `ethers-svelte` library and as
 resuable and composable best practices components. A `Balance` and
 `Identicon` components have been implemented for now. You are welcome
 to help define and develop new components by joining our discussions
@@ -357,7 +355,7 @@ in our [Discord](https://discord.gg/7yXuwDwaHF).
 See also the `components` route in the example directory.
 
 ```html
-  import { Balance } from 'svelte-ethers-store/components'
+  import { Balance } from 'ethers-svelte/components'
 </script>
 
 <p>balance = <Balance address="0x0000000000000000000000000000000000000000" /></p>
@@ -366,12 +364,6 @@ See also the `components` route in the example directory.
 
 
 ## FAQ
-
-
-### *Cannot run using SvelteKit, I get error:* `Cannot read property 'BN' of undefined`
-
-The module `ethers` has not been detected by Vite. You need `import ethers` somewhere
-in your app or add `optimizeDeps: { include: [ 'ethers' ] }` in `svelte.config.js`
 
 
 ### *how to auto-connect on page load?*

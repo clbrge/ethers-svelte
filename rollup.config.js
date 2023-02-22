@@ -9,8 +9,8 @@ export default [
     ]
   },
   {
-    input: "./src/svelte-ethers-store.d.ts",
-    output: [{ file: "dist/svelte-ethers-store.d.ts", format: "es" }],
+    input: "./src/ethers-svelte.d.ts",
+    output: [{ file: "dist/ethers-svelte.d.ts", format: "es" }],
     plugins: [dts()],
   },
 ]

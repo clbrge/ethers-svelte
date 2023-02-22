@@ -1,6 +1,5 @@
 
-
-import { ethers, utils } from 'ethers'
+import { ethers } from 'ethers'
 import { proxied } from 'svelte-proxied-store'
 import { derived } from 'svelte/store'
 
@@ -20,23 +19,21 @@ const getGlobalObject = () => {
   if (typeof global !== 'undefined') {
     return global
   }
-  throw new Error('[svelte-ethers-store] cannot find the global object')
+  throw new Error('[ethers-svelte] cannot find the global object')
 }
 
 const getWindowEthereum = () => {
   try {
     if (getGlobalObject().ethereum) return getGlobalObject().ethereum
   } catch (err) {
-    console.error('[svelte-ethers-store] no globalThis.ethereum object')
+    console.error('[ethers-svelte] no globalThis.ethereum object')
   }
 }
-
-// always get chainId as number
-const alwaysNumber = n => utils.isHexString(n) ? parseInt(n, 16) : n
 
 export const createStore = () => {
   const { emit, get, subscribe, assign, deleteAll } = proxied()
 
+  // BrowserProvider
   const switch1193Provider = async ({
     chainId,
     signerAddress, // not used
@@ -49,13 +46,14 @@ export const createStore = () => {
       return
     }
     if (!chainId) {
-      chainId =  alwaysNumber((await get('provider').getNetwork()).chainId)
+      chainId = (await get('provider').getNetwork()).chainId
     }
-    const signer = get('provider').getSigner(addressOrIndex)
+    // BrowserProvider doesn't take account argument
+    const signer = await (get('provider') instanceof ethers.BrowserProvider ? get('provider').getSigner() : get('provider').getSigner(addressOrIndex))
     try {
       signerAddress = await signer.getAddress()
     } catch (e) {
-      console.warn('[svelte-ethers-store] '+e)
+      console.warn('[ethers-svelte] '+e)
     }
     assign({
       connected: true,
@@ -71,7 +69,7 @@ export const createStore = () => {
       addressOrIndex:
         Array.isArray(accounts) && accounts.length ? accounts[0] : 0
     })
-  const chainChangedHandler = (eipProvider, addressOrIndex) => chainId => set1193Provider(eipProvider, addressOrIndex, alwaysNumber(chainId))
+  const chainChangedHandler = (eipProvider, addressOrIndex) => chainId => set1193Provider(eipProvider, addressOrIndex, BigInt(chainId))
   // TODO better error support ?
   const disconnectHandler = error => switch1193Provider({ error })
 
@@ -97,14 +95,14 @@ export const createStore = () => {
     try {
       accounts = await eipProvider.request({ method: 'eth_requestAccounts' })
     } catch (e) {
-      console.warn('[svelte-ethers-store] non compliant 1193 provider')
+      console.warn('[ethers-svelte] non compliant 1193 provider')
       // some provider may store accounts directly like walletconnect
       accounts = eipProvider.accounts
     }
     if (addressOrIndex == null && Array.isArray(accounts) && accounts.length) {
       addressOrIndex = accounts[0]
     }
-    const provider = new ethers.providers.Web3Provider(eipProvider)
+    const provider = new ethers.BrowserProvider(eipProvider)
     assign({
       provider,
       eipProvider,
@@ -123,7 +121,7 @@ export const createStore = () => {
     if (!provider) {
       if (!getWindowEthereum())
         throw new Error(
-          '[svelte-ethers-store] Please authorize browser extension (Metamask or similar)'
+          '[ethers-svelte] Please authorize browser extension (Metamask or similar)'
         )
       getWindowEthereum().autoRefreshOnNetworkChange = false
       return set1193Provider(getWindowEthereum())
@@ -134,28 +132,29 @@ export const createStore = () => {
     if (
       typeof provider !== 'object' ||
       (!(
-        Object.getPrototypeOf(provider) instanceof ethers.providers.BaseProvider
+        Object.getPrototypeOf(provider) instanceof ethers.AbstractProvider
       ) &&
         !(
           Object.getPrototypeOf(provider) instanceof
-          ethers.providers.UrlJsonRpcProvider
+          ethers.UrlJsonRpcProvider
         ))
     ) {
-      provider = new ethers.providers.JsonRpcProvider(provider)
+      provider = new ethers.JsonRpcProvider(provider)
     }
     const { chainId } = await provider.getNetwork()
     let signer, signerAddress
     if (addressOrIndex !== null) {
       try {
+        signer = await provider.getSigner(addressOrIndex)
         // XXX some providers do not support getSigner
-        if (typeof provider.listAccounts === 'function') {
-          signer = provider.getSigner(addressOrIndex)
-        } else {
-          signer = provider.getSigner()
-        }
+        // if (typeof provider.listAccounts === 'function') {
+        //   signer = await provider.getSigner(addressOrIndex)
+        // } else {
+        //   signer = await provider.getSigner()
+        // }
         signerAddress = await signer.getAddress()
       } catch (e) {
-        console.warn('[svelte-ethers-store] '+e)
+        console.warn('[ethers-svelte] '+e)
       }
     }
     assign({
@@ -163,13 +162,11 @@ export const createStore = () => {
       signerAddress,
       provider,
       connected: true,
-      chainId: alwaysNumber(chainId),
+      chainId: BigInt(chainId),
       evmProviderType: provider.constructor.name
     })
     emit()
   }
-
-  const setBrowserProvider = () => setProvider()
 
   const disconnect = async () => {
     init()
@@ -177,7 +174,6 @@ export const createStore = () => {
   }
 
   return {
-    setBrowserProvider,
     setProvider,
     disconnect,
     subscribe,
@@ -208,7 +204,7 @@ const noData = { rpc: [], explorers: [{}], faucets: [], nativeCurrency: {} }
 
 const getData = id => {
   for (const data of chains) {
-    if (data.chainId === id) return data
+    if (BigInt(data.chainId) === id) return data
   }
   return noData
 }
@@ -237,7 +233,7 @@ export const makeEvmStores = name => {
   allStores[name].provider = derived(evmStore, $evmStore => $evmStore.provider)
   allStores[name].chainId = derived(evmStore, $evmStore => $evmStore.chainId)
   allStores[name].chainData = derived(evmStore, $evmStore =>
-    $evmStore.chainId ? getData(alwaysNumber($evmStore.chainId)) : {}
+    $evmStore.chainId ? getData(BigInt($evmStore.chainId)) : {}
   )
 
   allStores[name].signer = derived(evmStore, $evmStore => $evmStore.signer)
@@ -277,7 +273,7 @@ export const makeEvmStores = name => {
         property = property.slice(1)
         if (subStoreNames.includes(property))
           return allStores[name].get(property)
-        throw new Error(`[svelte-ethers-store] no store named ${property}`)
+        throw new Error(`[ethers-svelte] no store named ${property}`)
       }
       if (property === 'attachContract') return registry.attachContract
       if (
@@ -289,7 +285,7 @@ export const makeEvmStores = name => {
         ].includes(property)
       )
         return Reflect.get(internal, property)
-      throw new Error(`[svelte-ethers-store] no store named ${property}`)
+      throw new Error(`[ethers-svelte] no store named ${property}`)
     }
   })
 }
@@ -297,7 +293,7 @@ export const makeEvmStores = name => {
 
 export const getChainStore = name => {
   if (!allStores[name])
-    throw new Error(`[svelte-ethers-store] chain store ${name} does not exist`)
+    throw new Error(`[ethers-svelte] chain store ${name} does not exist`)
   return allStores[name]
 }
 

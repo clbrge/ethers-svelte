@@ -4,6 +4,11 @@
 
   import { ethers } from 'ethers'
 
+  import Highlight from 'svelte-highlight'
+  import { xml } from "svelte-highlight/languages"
+
+  import lightfair from "svelte-highlight/styles/lightfair"
+
   import {
     connected,
     provider,
@@ -29,13 +34,12 @@
         LocalhostNull: () => evm.setProvider('http://127.0.0.1:8545', null),
         Gnosis: () => evm.setProvider('https://rpc.gnosischain.com'),
         Arbitrum: () => evm.setProvider('https://arb1.arbitrum.io/rpc'),
-        Infura: () => evm.setProvider(new ethers.providers.InfuraProvider('goerli'), null),
-        Etherscan: () => evm.setProvider(new ethers.providers.EtherscanProvider('goerli'), null),
-        Alchemy: () => evm.setProvider(new ethers.providers.AlchemyProvider('goerli'), null),
-        Clouflare: () => evm.setProvider(new ethers.providers.CloudflareProvider(), null),
+        Infura: () => evm.setProvider(new ethers.InfuraProvider('goerli'), null),
+        Etherscan: () => evm.setProvider(new ethers.EtherscanProvider('goerli'), null),
+        Alchemy: () => evm.setProvider(new ethers.AlchemyProvider('goerli'), null),
+        Clouflare: () => evm.setProvider(new ethers.CloudflareProvider(), null),
       }
-
-      console.log(type, handler[type])
+      console.log('[example]', type, handler[type])
       await handler[type]()
       pending = false
 
@@ -99,10 +103,10 @@
     <option value="LocalhostNull">Localhost but only provider (no signer)</option>
     <option value="Gnosis">https://rpc.gnosischain.com (RPC)</option>
     <option value="Arbitrum">https://arb1.arbitrum.io/rpc (RPC)</option>
-    <option value="Infura">ethers.providers.InfuraProvider('goerli')</option>
-    <option value="Etherscan">ethers.providers.EtherscanProvider('goerli')</option>
-    <option value="Alchemy">ethers.providers.AlchemyProvider('goerli')</option>
-    <option value="Clouflare">ethers.providers.CloudflareProvider()</option>
+    <option value="Infura">ethers.InfuraProvider('goerli')</option>
+    <option value="Etherscan">ethers.EtherscanProvider('goerli')</option>
+    <option value="Alchemy">ethers.AlchemyProvider('goerli')</option>
+    <option value="Clouflare">ethers.CloudflareProvider()</option>
   </select>
 
 
@@ -128,15 +132,30 @@
     <li>$chainData.name: {$chainData.name}</li>
   </ul>
 
-  <h3>await is also possible </h3>
+  <h3>you may also use <em>await</em> </h3>
 
-  <p>
+    <Highlight language={xml} code={`\n<p>
     {#await network}
     <span>waiting...</span>
     {:then value}
-    <span>{JSON.stringify(value)}</span>
+    connected to <span>{value.name}[{value.chainId}]</span>
     {/await}
 
+    {#await account}
+    <span>waiting...</span>
+    {:then value}
+    with {#if value}account {value}{:else}no account{/if}
+    {/await}
+  </p>\n\n`} />
+
+    generates
+
+    <p style="background: #fff;">
+    {#await network}
+    <span>waiting...</span>
+    {:then value}
+    connected to <span>{value.name}[{value.chainId}]</span>
+    {/await}
 
     {#await account}
     <span>waiting...</span>
@@ -145,7 +164,7 @@
     {/await}
   </p>
 
-  {/if}
+ {/if}
 
 </div>
 
