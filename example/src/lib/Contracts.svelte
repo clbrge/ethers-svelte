@@ -38,7 +38,7 @@
 
   {#if $connected }
 
-    {#if $chainId !== 5 }
+    {#if $chainId !== BigInt(5) }
 
       <p>
         Your are connected to the wrong network ("{$chainData.name}")". Please

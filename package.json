@@ -38,12 +38,12 @@
     "svelte-proxied-store": "^1.1.5"
   },
   "devDependencies": {
-    "ethers": "^6.0.4",
+    "ethers": "^6.0.5",
     "lint-staged": "^13.1.2",
     "prettier-standard": "^16.4.1",
     "release-it": "^15.6.0",
-    "rollup": "^2.78.1",
-    "rollup-plugin-dts": "^4.2.2",
+    "rollup": "^3.17.2",
+    "rollup-plugin-dts": "^5.2.0",
     "svelte": "^3.55.1"
   },
   "lint-staged": {
@@ -52,7 +52,7 @@
     ]
   },
   "release-it": {
-    "gitlab": {
+    "github": {
       "release": true
     }
   },

@@ -1,6 +1,6 @@
-# Contributing to svelte-ethers-store
+# Contributing to ethers-svelte
 
-Thanks for your interest in improving svelte-ethers-store! We welcome
+Thanks for your interest in improving ethers-svelte! We welcome
 contributions of all kinds: from discussion to documentation to
 bugfixes to feature improvements.
 
@@ -11,7 +11,7 @@ everyone's precious time.
 
 No software is bug-free. So, if you got an issue, follow these steps:
 
-- Search the [issue list](https://gitlab.com/clb1/svelte-ethers-store/-/issues) for current and old issues.
+- Search the [issue list](https://github.com/clbrge/ethers-svelte/issues) for current and old issues.
   - If you find an existing issue, please UPVOTE the issue by adding a "thumbs-up reaction". We use this to help prioritize issues!
 - If none of that is helping, create an issue with the following information:
   - Clear title (shorter is better).
