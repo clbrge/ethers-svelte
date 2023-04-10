@@ -5,7 +5,7 @@ collection of [readable Svelte stores](https://svelte.dev/tutorial/readable-stor
 for Svelte, Sapper or SvelteKit. This package includes also a few basic Svelte components
 for very typical usage of ethers.js: `Balance` `Identicon` `Jazzicon`.
 
-:exclamation: This is an exeriemental version that only support ethers.js version 6. Please use the package
+:exclamation: This is an experimental version that only support ethers.js version 6. Please use the package
 [svelte-ethers-store](https://www.npmjs.com/package/svelte-ethers-store) for ethers.js version 5.
 
 If you also use the [web3.js library](https://web3js.readthedocs.io/) to interact
