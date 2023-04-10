@@ -35,10 +35,10 @@
     "ethereum-blockies-base64": "^1.0.2",
     "ethers": "6.x",
     "svelte": "3.x",
-    "svelte-proxied-store": "^1.1.5"
+    "svelte-proxied-store": "^2.0.1"
   },
   "devDependencies": {
-    "ethers": "^6.0.5",
+    "ethers": "^6.3.0",
     "prettier-config-standard": "^5.0.0",
     "lint-staged": "^13.1.2",
     "release-it": "^15.6.0",

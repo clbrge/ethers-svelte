@@ -1,10 +1,10 @@
 <script>
 
-  import { connected, provider, signerAddress } from 'svelte-ethers-store'
+  import { connected, provider, signerAddress } from 'ethers-svelte'
 
   import { test } from '$lib/cache'
 
-  import { Balance, Identicon, Jazzicon } from 'svelte-ethers-store/components'
+  import { Balance, Identicon, Jazzicon } from 'ethers-svelte/components'
 
   import Highlight from 'svelte-highlight'
   import { xml } from "svelte-highlight/languages"
@@ -22,7 +22,7 @@
 
 <div class="content">
 
-  <h1>svelte-ethers-store</h1>
+  <h1>ethers-svelte</h1>
 
   <h2>using Components</h2>
 

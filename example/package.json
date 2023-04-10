@@ -1,6 +1,6 @@
 {
   "name": "ethers-svelte-example",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
@@ -10,15 +10,15 @@
     "highlight.js": "^11.6.0"
   },
   "devDependencies": {
-    "svelte-highlight": "^7.2.0",
-    "@openzeppelin/contracts": "^4.8.1",
-    "svelte-ethers-store": "file:../",
+    "svelte-highlight": "^7.2.1",
+    "@openzeppelin/contracts": "^4.8.2",
+    "ethers-svelte": "file:../",
     "@fontsource/fira-mono": "^4.5.10",
     "@neoconfetti/svelte": "^1.0.0",
     "@sveltejs/adapter-auto": "^2.0.0",
-    "@sveltejs/kit": "^1.8.3",
-    "svelte": "^3.55.1",
-    "vite": "^4.1.4"
+    "@sveltejs/kit": "^1.15.2",
+    "svelte": "^3.58.0",
+    "vite": "^4.2.1"
   },
   "type": "module"
 }

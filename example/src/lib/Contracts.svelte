@@ -1,6 +1,6 @@
 <script>
 
-  import { defaultEvmStores as evm, connected, chainId, chainData, contracts, signerAddress } from 'svelte-ethers-store'
+  import { defaultEvmStores as evm, connected, chainId, chainData, contracts, signerAddress } from 'ethers-svelte'
 
   import IERC20 from '@openzeppelin/contracts/build/contracts/IERC20.json'
 
@@ -21,7 +21,7 @@
 
 <div class="content">
 
-  <h1>svelte-ethers-store</h1>
+  <h1>ethers-svelte</h1>
 
   <h2>using the '$contracts' store</h2>
 

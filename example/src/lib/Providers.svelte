@@ -19,7 +19,7 @@
     evmProviderType,
     defaultEvmStores as evm
   }
-  from 'svelte-ethers-store'
+  from 'ethers-svelte'
 
   let type
   let pending = false
@@ -74,7 +74,7 @@
 
 <div class="content">
 
-  <h1>svelte-ethers-store</h1>
+  <h1>ethers-svelte</h1>
 
   <h2>using setProvider()</h2>
 

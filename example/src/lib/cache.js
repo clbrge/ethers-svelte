@@ -1,7 +1,7 @@
 
 import { ethers } from 'ethers'
 
-import { defaultEvmStores, contracts } from 'svelte-ethers-store'
+import { defaultEvmStores, contracts } from 'ethers-svelte'
 
 
 export const test = () => {
