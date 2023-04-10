@@ -1,4 +1,3 @@
-
 # ethers-svelte
 
 Use the [ethers.js library](https://docs.ethers.io/) as a
@@ -35,16 +34,24 @@ or the selected account change. You can import them directly in any
 Svelte or JavaScript files :
 
 ```js
-import { connected, provider, chainId, chainData, signer, signerAddress, contracts } from 'ethers-svelte'
+import {
+  connected,
+  provider,
+  chainId,
+  chainData,
+  signer,
+  signerAddress,
+  contracts,
+} from "ethers-svelte";
 ```
 
- * connected: store value is true if a connection has been set up.
- * provider: store value is an Ethers.js Provider instance when connected.
- * chainId: store value is the current chainId when connected (always BigInt)
- * chainData: store value is the current blokchain CAIP-2 data (when connected), see below.
- * signer: store value is an Ethers.js Signer instance when connected.
- * signerAddress: store value is a shortcut to get `$signer.getAddress()` when connected.
- * contract: store value is an Object for all ethers.Contract instances you need.
+- connected: store value is true if a connection has been set up.
+- provider: store value is an Ethers.js Provider instance when connected.
+- chainId: store value is the current chainId when connected (always BigInt)
+- chainData: store value is the current blokchain CAIP-2 data (when connected), see below.
+- signer: store value is an Ethers.js Signer instance when connected.
+- signerAddress: store value is a shortcut to get `$signer.getAddress()` when connected.
+- contract: store value is an Object for all ethers.Contract instances you need.
 
 For these stores to be useful in your Svelte application, a connection
 to an EVM blockchain first need to established . The abstract helper
@@ -52,7 +59,7 @@ to an EVM blockchain first need to established . The abstract helper
 automatically instanciate all stores.
 
 ```js
-import { defaultEvmStores } from 'ethers-svelte'
+import { defaultEvmStores } from "ethers-svelte";
 ```
 
 ### Connection with the browser provider (eg wallets like Metamask)
@@ -63,7 +70,7 @@ injected in the browser `window` context, simply call `setProvider` on
 the library abstract helper with no argument:
 
 ```js
-defaultEvmStores.setProvider()
+defaultEvmStores.setProvider();
 ```
 
 Please note that `setProvider` can only to be called with no argument
@@ -72,27 +79,24 @@ Sapper or SvelteKit. Similarly, you cannot use `setProvider` with no
 argument in SSR context.
 
 ```js
-  onMount(
-    () => {
-      // add a test to return in SSR context
-      defaultEvmStores.setProvider()
-    }
-  )
+onMount(() => {
+  // add a test to return in SSR context
+  defaultEvmStores.setProvider();
+});
 ```
 
 `ethers-svelte` will automatically update the stores when the network or
 accounts change and remove listeners at disconnection.
 
-
 ### Connection with non injected EIP-1193 providers
 
 To connect to non injected EIP-1193 providers like :
 
- * buidler.dev
- * ethers.js
- * eth-provider
- * WalletConnect
- * Web3Modal
+- buidler.dev
+- ethers.js
+- eth-provider
+- WalletConnect
+- Web3Modal
 
 Call `setProvider` on the library abstract helper with the JavaScript provider
 instance object of the library. For example with Web3Modal :
@@ -106,7 +110,6 @@ defaultEvmStores.setProvider(provider)
 `ethers-svelte` will automatically update the stores when the network or
 accounts change and remove listeners at disconnection.
 
-
 ### Connection with other Ethers.js providers (ws, http, ipc, ...)
 
 You can instanciate many types of providers using Ethers.js, see the
@@ -116,9 +119,9 @@ simply pass them as argument to `defaultEvmStores.setProvider()` to inititate th
 
 ```js
 defaultEvmStores.setProvider(new ethers.providers.InfuraProvider(<args>))
-// or 
+// or
 defaultEvmStores.setProvider(new ethers.providers.EtherscanProvider(<args>))
-// or 
+// or
 defaultEvmStores.setProvider(new ethers.providers.AlchemyProvider(<args>))
 // etc...
 ```
@@ -139,19 +142,15 @@ If you don't need a signer, you might also call `setProvider` with the
 argument `addressOrIndex` as a `null` value and bypass any attempt to
 detect an account.
 
-
 ### Using the stores
 
 After a connection has been established, you may import the stores
 anywhere in your application. Most of the time, you should use the `$`
 prefix Svelte notation to access the stores values.
 
-
 ```html
 <script>
-
-  import { connected, chainId, signerAddress } from 'ethers-svelte'
-
+  import { connected, chainId, signerAddress } from "ethers-svelte";
 </script>
 
 {#if !$connected}
@@ -168,9 +167,9 @@ prefix Svelte notation to access the stores values.
 ### Using the Ethers.js Providers and Signers API
 
 Likewise use the `$` prefix Svelte notation to access Provider or Signer
-read-only abstractions and use the whole Ethers.js API. (beware, in the Ethers 
+read-only abstractions and use the whole Ethers.js API. (beware, in the Ethers
 library documentation, Provider or Signer instances are always noted as `provider`
- and `signer`, without `$`, but in the context of `ethers-svelte`, this naming
+and `signer`, without `$`, but in the context of `ethers-svelte`, this naming
 is used by the Svelte stores themselves encapsulating Provider or Signer instances).
 
 ```js
@@ -181,13 +180,12 @@ is used by the Svelte stores themselves encapsulating Provider or Signer instanc
   const { name, chainId } = await $provider.getNetwork()
 
   const balance = await $signer.getBalance()
-  
+
   $signer.sendTransaction({<to>, <value>, <gasLimit>});
 
 ```
 
 For providers that don't support `getSigner`, the value `$signer` will be `null`.
-
 
 ### Using the contracts store for reactive contract calls
 
@@ -196,16 +194,14 @@ with a contract instance, you first need to declare its address and
 interface. To differenciate each `ethers.Contract` instance, you also
 need to define a logical name. That's the function `attachContract`:
 
-
 ```html
 <script>
 
   import { defaultEvmStores } from 'ethers-svelte'
 
-  // ... 
+  // ...
 
   defaultEvmStores.attachContract('myContract',<address>, <abi>)
-
 </script>
 ```
 
@@ -221,24 +217,20 @@ using the `$` notation and the logical name :
 
 ```html
 <script>
+  import { contracts } from "ethers-svelte";
 
-  import { contracts } from 'ethers-svelte'
-
-  // ... 
-
+  // ...
 </script>
 
+{#await $contracts.myContract.totalSupply()}
 
-  {#await $contracts.myContract.totalSupply()}
+<span>waiting...</span>
 
-  <span>waiting...</span>
+{:then value}
 
-  {:then value}
+<span>result of contract call totalSupply on my contract : { value } </span>
 
-  <span>result of contract call totalSupply on my contract : { value }   </span>
-
-  {/await}
-
+{/await}
 ```
 
 By default, `ethers-svelte` build contract instances using the signer if
@@ -246,7 +238,10 @@ available and if not the provider. You may want to force using the current provi
 by passing `false` as fourth argument.
 
 ```html
-  defaultEvmStores.attachContract('myContract', <address>, <abi>, <signerIfavailble>)
+defaultEvmStores.attachContract('myContract',
+<address>
+  , <abi>, <signerIfavailble>)</signerIfavailble></abi>
+</address>
 ```
 
 ### Reading stores outside of Svelte files
@@ -257,13 +252,11 @@ values in pure javascript library without subscribing to the store,
 you can use a special getter on the library abstract helper:
 
 ```js
-// this is not a Svelte file but a standard JavaScript file 
-import { defaultEvmStores } from 'ethers-svelte'
+// this is not a Svelte file but a standard JavaScript file
+import { defaultEvmStores } from "ethers-svelte";
 
 if (defaultEvmStores.$selectedAccount) {
-
   // do something if store selectedAccount is non null
-
 }
 ```
 
@@ -273,7 +266,7 @@ Simply call the function `disconnect` directly on the on the library
 abstract helper:
 
 ```js
-defaultEvmStores.disconnect()
+defaultEvmStores.disconnect();
 ```
 
 ## Human readable chain CAIP-2 information
@@ -291,7 +284,7 @@ This object is extremely useful to build components that reactively
 update all variables elements that depends on the current active chain
 or account.
 
-Below is the CAIP-2 formatted information when the default store is 
+Below is the CAIP-2 formatted information when the default store is
 connected with the Ethereum Mainnet :
 
 ```json
@@ -315,11 +308,13 @@ connected with the Ethereum Mainnet :
   "networkId": 1,
   "slip44": 60,
   "ens": { "registry": "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e" },
-  "explorers": [{
-    "name": "etherscan",
-    "url": "https://etherscan.io",
-    "standard": "EIP3091"
-  }]
+  "explorers": [
+    {
+      "name": "etherscan",
+      "url": "https://etherscan.io",
+      "standard": "EIP3091"
+    }
+  ]
 }
 ```
 
@@ -328,9 +323,9 @@ You might want to access all chains CAIP-2 data directly without using the
 the list of all CAIP-2 data available.
 
 ```js
-import { allChainsData } from 'ethers-svelte'
+import { allChainsData } from "ethers-svelte";
 
-console.log( allChainsData )
+console.log(allChainsData);
 ```
 
 Another solution is to use the helper function `getChainDataByChainId`
@@ -338,9 +333,9 @@ that takes the chainId as argument and returns
 the CAIP-2 data or an empty object if not found.
 
 ```js
-import { getChainDataByChainId } from 'ethers-svelte'
+import { getChainDataByChainId } from "ethers-svelte";
 
-console.log( getChainDataByChainId(5) )
+console.log(getChainDataByChainId(5));
 ```
 
 ## Ethers Svelte components
@@ -362,14 +357,11 @@ See also the `components` route in the example directory.
 
 ```
 
-
 ## FAQ
 
-
-### *how to auto-connect on page load?*
+### _how to auto-connect on page load?_
 
 It is out of scope of this package to implement this function but it
 generally depends on the type of provider you are using and a way to
 store connection information between page loads (for example by using
 localStorage).
-

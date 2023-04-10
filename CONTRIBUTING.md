@@ -1,6 +1,6 @@
 # Contributing to ethers-svelte
 
-Thank you for your interest in improving  ethers-svelte! We welcome contributions of all kinds: from discussions and documentation to bug fixes and feature enhancements.
+Thank you for your interest in improving ethers-svelte! We welcome contributions of all kinds: from discussions and documentation to bug fixes and feature enhancements.
 
 Please review this document to help streamline the process and save everyone's precious time.
 
