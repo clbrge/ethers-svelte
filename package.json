@@ -4,14 +4,14 @@
   "description": "Ethers.js library as a collection of stores for Svelte, Sapper or SvelteKit & related UX components.",
   "license": "MIT",
   "repository": "clbrge/ethers-svelte",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "svelte": "src/stores.js",
   "types": "dist/ethers-svelte.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "main": "./dist/index.js",
+      "main": "./dist/index.cjs",
       "module": "./dist/index.mjs",
       "svelte": "./src/stores.js",
       "types": "./dist/ethers-svelte.d.ts"
@@ -35,16 +35,16 @@
     "ethereum-blockies-base64": "^1.0.2",
     "ethers": "6.x",
     "svelte": "3.x",
-    "svelte-proxied-store": "^2.0.1"
+    "svelte-proxied-store": "^2.0.2"
   },
   "devDependencies": {
     "ethers": "^6.3.0",
     "prettier-config-standard": "^5.0.0",
-    "lint-staged": "^13.1.2",
-    "release-it": "^15.6.0",
-    "rollup": "^3.17.2",
-    "rollup-plugin-dts": "^5.2.0",
-    "svelte": "^3.55.1"
+    "lint-staged": "^13.2.1",
+    "release-it": "^15.10.1",
+    "rollup": "3.20.4",
+    "rollup-plugin-dts": "^5.3.0",
+    "svelte": "^3.58.0"
   },
   "lint-staged": {
     "*.{js,json,md}": "prettier --write"
