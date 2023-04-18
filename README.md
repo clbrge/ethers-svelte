@@ -47,7 +47,7 @@ import {
 
 - connected: store value is true if a connection has been set up.
 - provider: store value is an Ethers.js Provider instance when connected.
-- chainId: store value is the current chainId when connected (always BigInt)
+- chainId: store value is the current chainId when connected (** always a BigInt **)
 - chainData: store value is the current blokchain CAIP-2 data (when connected), see below.
 - signer: store value is an Ethers.js Signer instance when connected.
 - signerAddress: store value is a shortcut to get `$signer.getAddress()` when connected.

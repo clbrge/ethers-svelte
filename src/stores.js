@@ -303,8 +303,9 @@ export const getChainStore = (name) => {
 
 export { chains as allChainsData };
 
+// chains.js only support number chainId
 export const getChainDataByChainId = (id) =>
-  (chains.filter((o) => o.chainId === id) || [{}])[0];
+(chains.filter((o) => o.chainId === Number(BigInt(id))) || [{}])[0];
 
 export const defaultEvmStores = makeEvmStores("default");
 
