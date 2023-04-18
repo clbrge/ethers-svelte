@@ -35,7 +35,7 @@
     "ethereum-blockies-base64": "^1.0.2",
     "ethers": "6.x",
     "svelte": "3.x",
-    "svelte-proxied-store": "^2.0.2"
+    "svelte-proxied-store": "^2.0.3"
   },
   "devDependencies": {
     "ethers": "^6.3.0",
