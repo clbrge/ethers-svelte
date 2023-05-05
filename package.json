@@ -40,9 +40,9 @@
   "devDependencies": {
     "ethers": "^6.3.0",
     "prettier-config-standard": "^5.0.0",
-    "lint-staged": "^13.2.1",
-    "release-it": "^15.10.1",
-    "rollup": "3.20.4",
+    "lint-staged": "^13.2.2",
+    "release-it": "^15.10.3",
+    "rollup": "3.21.5",
     "rollup-plugin-dts": "^5.3.0",
     "svelte": "^3.58.0"
   },
