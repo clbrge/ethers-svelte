@@ -1,8 +1,15 @@
 {
   "name": "ethers-svelte",
   "version": "3.1.2",
-  "description": "Ethers.js library as a collection of stores for Svelte, Sapper or SvelteKit & related UX components.",
+  "description": "Ethers.js library as a collection of stores for Svelte or SvelteKit & related UX components.",
+  "author": {
+    "name": "Christophe Le Bars",
+    "email": "<clb@toort.net>"
+  },
   "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "repository": "clbrge/ethers-svelte",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
@@ -20,10 +27,6 @@
       "import": "./src/components/index.js",
       "svelte": "./src/components/index.js"
     }
-  },
-  "author": {
-    "name": "Christophe Le Bars",
-    "email": "<clb@toort.net>"
   },
   "scripts": {
     "update-chains": "node ./scripts/update-chains.mjs",
