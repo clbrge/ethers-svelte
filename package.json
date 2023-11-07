@@ -37,15 +37,15 @@
     "@metamask/jazzicon": "^2.0.0",
     "ethereum-blockies-base64": "^1.0.2",
     "ethers": "6.x",
-    "svelte": "4.x",
+    "svelte": ">4.0",
     "svelte-proxied-store": "^2.0.4"
   },
   "devDependencies": {
-    "ethers": "^6.8.0",
+    "ethers": "^6.8.1",
     "prettier-config-standard": "^7.0.0",
     "lint-staged": "^15.0.2",
     "release-it": "^16.2.1",
-    "rollup": "4.1.5",
+    "rollup": "4.3.0",
     "rollup-plugin-dts": "^6.1.0",
     "svelte": "^4.2.2"
   },
