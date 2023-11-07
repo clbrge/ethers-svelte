@@ -1,6 +1,6 @@
 {
   "name": "ethers-svelte",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "Ethers.js library as a collection of stores for Svelte or SvelteKit & related UX components.",
   "author": {
     "name": "Christophe Le Bars",
